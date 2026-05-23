@@ -5,753 +5,187 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>💕 我们的小世界</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+:root{
+  --p:#e8607c;--pl:#f7a8b8;--pd:#c94060;
+  --bg:#fdf2f4;--card:#fff;--tx:#4a3040;--txl:#8a7080;
+  --gold:#d4a574;--shadow:0 8px 32px rgba(232,96,124,.12);--r:20px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Serif SC',serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
 
-  :root {
-    --primary: #e8607c;
-    --primary-light: #f7a8b8;
-    --primary-dark: #c94060;
-    --bg: #fdf2f4;
-    --card: #ffffff;
-    --text: #4a3040;
-    --text-light: #8a7080;
-    --gold: #d4a574;
-    --gold-light: #f0d4b0;
-    --shadow: 0 8px 32px rgba(232, 96, 124, 0.12);
-    --radius: 20px;
-  }
+/* === 粒子 === */
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.particle{position:absolute;font-size:16px;opacity:.15;animation:floatUp linear infinite}
+@keyframes floatUp{0%{transform:translateY(100vh) rotate(0);opacity:0}10%{opacity:.15}90%{opacity:.15}100%{transform:translateY(-10vh) rotate(360deg);opacity:0}}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* === 首页 === */
+.home{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:30px 16px}
+.home-icon{font-size:64px;animation:heartbeat 1.5s ease-in-out infinite;margin-bottom:12px}
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.08)}}
+.home-title{font-size:28px;font-weight:700;background:linear-gradient(135deg,var(--p),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.home-subtitle{color:var(--txl);font-size:14px;margin-bottom:36px;text-align:center}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:400px}
+.menu-item{background:var(--card);border-radius:var(--r);padding:20px 8px;text-align:center;box-shadow:var(--shadow);cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1);border:2px solid transparent;user-select:none}
+.menu-item:active{transform:scale(.95)}
+.menu-item:hover{border-color:var(--pl);transform:translateY(-3px);box-shadow:0 12px 40px rgba(232,96,124,.2)}
+.menu-item .icon{font-size:32px;margin-bottom:6px;display:block}
+.menu-item .label{font-size:13px;font-weight:700;color:var(--tx)}
+.menu-item .desc{font-size:11px;color:var(--txl);margin-top:2px}
 
-  body {
-    font-family: 'Noto Serif SC', serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+/* === 页面 === */
+.page{display:none;position:relative;z-index:1;min-height:100vh;padding:16px;padding-top:56px;padding-bottom:32px;max-width:480px;margin:0 auto}
+.page.active{display:block}
+.page-header{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.back-btn{width:36px;height:36px;border-radius:50%;border:none;background:var(--card);box-shadow:0 2px 8px rgba(0,0,0,.08);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s;flex-shrink:0}
+.back-btn:active{transform:scale(.9)}
+.page-title{font-size:20px;font-weight:700}
+.card{background:var(--card);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);margin-bottom:14px}
 
-  /* === 粒子背景 === */
-  #particles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .particle {
-    position: absolute;
-    font-size: 16px;
-    opacity: 0.15;
-    animation: floatUp linear infinite;
-  }
-  @keyframes floatUp {
-    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.15; }
-    90% { opacity: 0.15; }
-    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-  }
+/* === 按钮 === */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:14px;border:none;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:all .3s;width:100%}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;box-shadow:0 4px 16px rgba(232,96,124,.35)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#c09060);color:#fff;box-shadow:0 4px 16px rgba(212,165,116,.35)}
+.btn-outline{background:transparent;border:2px solid var(--pl);color:var(--p)}
+.btn-small{padding:10px 18px;font-size:13px;border-radius:10px}
 
-  /* === 主页 === */
-  .home {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 40px 20px;
-  }
+/* === 1. 默契大考验 === */
+.quiz-intro{text-align:center;padding:16px 0}
+.quiz-intro .big-emoji{font-size:56px;margin-bottom:12px}
+.quiz-intro p{color:var(--txl);line-height:1.8;font-size:14px}
+.player-select{display:flex;gap:10px;margin:16px 0}
+.player-btn{flex:1;padding:14px;border-radius:14px;border:2px solid var(--pl);background:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all .3s;text-align:center}
+.player-btn.selected{background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;border-color:var(--p)}
+.quiz-progress{display:flex;gap:4px;margin-bottom:16px}
+.quiz-dot{flex:1;height:3px;border-radius:2px;background:var(--pl);opacity:.3;transition:all .3s}
+.quiz-dot.done{opacity:1;background:var(--p)}
+.quiz-dot.current{opacity:1;background:var(--gold)}
+.quiz-question{font-size:16px;font-weight:700;text-align:center;margin-bottom:20px;line-height:1.6}
+.quiz-options{display:flex;flex-direction:column;gap:8px}
+.quiz-option{padding:14px;border-radius:12px;border:2px solid #f0e0e4;background:#fff;font-family:inherit;font-size:14px;cursor:pointer;transition:all .25s;text-align:left;line-height:1.5}
+.quiz-option:active{transform:scale(.98)}
+.quiz-option:hover{border-color:var(--pl)}
+.quiz-option.selected{border-color:var(--p);background:linear-gradient(135deg,#fff0f3,#fde4e8);font-weight:700}
+.quiz-result{text-align:center;padding:16px 0}
+.result-score{font-size:72px;font-weight:700;background:linear-gradient(135deg,var(--p),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.result-label{font-size:15px;color:var(--txl);margin-top:6px;margin-bottom:20px}
+.result-message{font-size:14px;line-height:1.8;color:var(--tx);padding:14px;background:linear-gradient(135deg,#fff0f3,#fde8ec);border-radius:12px}
 
-  .home-icon {
-    font-size: 72px;
-    animation: heartbeat 1.5s ease-in-out infinite;
-    margin-bottom: 16px;
-  }
-  @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.15); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.08); }
-  }
+/* === 2. FLAMES缘分测试 === */
+.flames-setup{text-align:center;padding:16px 0}
+.flames-setup .big-emoji{font-size:56px;margin-bottom:12px}
+.flames-inputs{display:flex;gap:10px;margin:16px 0;align-items:center}
+.flames-input{flex:1;padding:12px;border:2px solid #f0e0e4;border-radius:12px;font-family:inherit;font-size:15px;text-align:center;outline:none;transition:border-color .3s}
+.flames-input:focus{border-color:var(--pl)}
+.flames-heart{font-size:24px;color:var(--p);animation:heartbeat 1.5s ease-in-out infinite}
+.flames-result{text-align:center;padding:20px 0}
+.flames-letter{font-size:64px;font-weight:700;background:linear-gradient(135deg,var(--p),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:16px 0}
+.flames-desc{font-size:15px;line-height:1.8;color:var(--tx);margin-bottom:16px}
+.flames-type{font-size:20px;font-weight:700;color:var(--p);margin-bottom:8px}
 
-  .home-title {
-    font-size: 32px;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--primary), var(--gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
-  }
+/* === 3. 你会选哪个 === */
+.wyr-card-stack{position:relative;width:100%;height:320px;perspective:1000px;margin:12px 0}
+.wyr-card{position:absolute;width:100%;height:100%;border-radius:var(--r);padding:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:var(--shadow);cursor:grab;transition:transform .3s,opacity .3s;user-select:none;touch-action:pan-y}
+.wyr-card.left{animation:swipeLeft .4s forwards}
+.wyr-card.right{animation:swipeRight .4s forwards}
+@keyframes swipeLeft{to{transform:translateX(-120%) rotate(-15deg);opacity:0}}
+@keyframes swipeRight{to{transform:translateX(120%) rotate(15deg);opacity:0}}
+.wyr-label{font-size:13px;color:var(--txl);margin-bottom:8px}
+.wyr-emoji{font-size:48px;margin-bottom:12px}
+.wyr-text{font-size:18px;font-weight:700;line-height:1.6}
+.wyr-hint{font-size:12px;color:var(--txl);text-align:center;margin-top:12px}
+.wyr-counter{text-align:center;font-size:13px;color:var(--txl);margin-bottom:8px}
+.wyr-result-card{background:linear-gradient(135deg,#fff0f3,#fde8ec)}
+.wyr-option-a{background:linear-gradient(135deg,#e8f0ff,#d0e4ff)}
+.wyr-option-b{background:linear-gradient(135deg,#fff0e8,#fde4d0)}
+.wyr-vs{font-size:16px;font-weight:700;color:var(--txl);margin:8px 0}
 
-  .home-subtitle {
-    color: var(--text-light);
-    font-size: 15px;
-    margin-bottom: 48px;
-    text-align: center;
-  }
+/* === 4. 情侣愿望清单 === */
+.bucket-progress{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.bucket-bar{flex:1;height:8px;border-radius:4px;background:#f0e0e4;overflow:hidden}
+.bucket-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--p),var(--gold));transition:width .5s cubic-bezier(.34,1.56,.64,1)}
+.bucket-count{font-size:13px;font-weight:700;color:var(--p);white-space:nowrap}
+.bucket-item{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;border:1.5px solid #f0e0e4;background:#fff;margin-bottom:8px;cursor:pointer;transition:all .3s}
+.bucket-item:active{transform:scale(.98)}
+.bucket-item.done{border-color:var(--pl);background:linear-gradient(135deg,#fff0f3,#fde8ec)}
+.bucket-check{width:24px;height:24px;border-radius:50%;border:2px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .3s;flex-shrink:0}
+.bucket-item.done .bucket-check{border-color:var(--p);background:var(--p);color:#fff}
+.bucket-text{flex:1;font-size:14px;line-height:1.4}
+.bucket-item.done .bucket-text{text-decoration:line-through;color:var(--txl)}
+.bucket-category{font-size:13px;font-weight:700;color:var(--txl);margin:12px 0 6px}
 
-  .menu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    width: 100%;
-    max-width: 360px;
-  }
+/* === 5. 约会灵感 === */
+.date-categories{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.date-cat{padding:8px 14px;border-radius:20px;border:1.5px solid var(--pl);background:#fff;font-family:inherit;font-size:13px;cursor:pointer;transition:all .3s;color:var(--tx)}
+.date-cat.active{background:var(--p);color:#fff;border-color:var(--p)}
+.date-result{text-align:center;padding:24px 0}
+.date-emoji{font-size:56px;margin-bottom:12px}
+.date-title{font-size:18px;font-weight:700;margin-bottom:8px}
+.date-desc{font-size:14px;color:var(--txl);line-height:1.6;margin-bottom:20px}
+.date-tip{font-size:12px;color:var(--txl);padding:10px;background:#f8f0f2;border-radius:10px;margin-top:12px}
 
-  .menu-item {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 28px 16px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    border: 2px solid transparent;
-    user-select: none;
-  }
-  .menu-item:active {
-    transform: scale(0.95);
-  }
-  .menu-item:hover {
-    border-color: var(--primary-light);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(232, 96, 124, 0.2);
-  }
+/* === 6. 真心话大冒险 === */
+.tod-mode-select{display:flex;gap:8px;margin-bottom:16px}
+.tod-mode-btn{flex:1;padding:12px;border-radius:12px;border:2px solid #f0e0e4;background:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;text-align:center;transition:all .3s}
+.tod-mode-btn.selected-truth{border-color:#7eb8e0;background:linear-gradient(135deg,#e8f4fd,#d0ecff);color:#3a7ab5}
+.tod-mode-btn.selected-dare{border-color:var(--p);background:linear-gradient(135deg,#fff0f3,#fde4e8);color:var(--pd)}
+.tod-card{text-align:center;padding:24px 16px}
+.tod-emoji{font-size:44px;margin-bottom:12px}
+.tod-type{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
+.tod-type.truth{color:#7eb8e0}
+.tod-type.dare{color:var(--p)}
+.tod-text{font-size:16px;font-weight:700;line-height:1.8;margin-bottom:24px;min-height:48px}
+.tod-actions{display:flex;gap:10px}
+.tod-actions .btn{flex:1}
 
-  .menu-item .icon {
-    font-size: 40px;
-    margin-bottom: 10px;
-    display: block;
-  }
-  .menu-item .label {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text);
-  }
-  .menu-item .desc {
-    font-size: 12px;
-    color: var(--text-light);
-    margin-top: 4px;
-  }
+/* === 7. 纪念日倒计时 === */
+.countdown-setup{text-align:center;padding:16px 0}
+.countdown-setup .big-emoji{font-size:48px;margin-bottom:12px}
+.countdown-setup p{color:var(--txl);margin-bottom:16px;font-size:14px}
+.date-input{display:flex;gap:6px;justify-content:center;margin-bottom:20px}
+.date-input input{width:90px;padding:10px;border:2px solid #f0e0e4;border-radius:12px;font-family:inherit;font-size:15px;text-align:center;outline:none;transition:border-color .3s}
+.date-input input:focus{border-color:var(--pl)}
+.date-input span{display:flex;align-items:center;color:var(--txl);font-size:13px}
+.countdown-display{text-align:center;padding:16px 0}
+.countdown-big-number{font-size:64px;font-weight:700;background:linear-gradient(135deg,var(--p),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.countdown-big-label{font-size:16px;color:var(--txl);margin-top:4px;margin-bottom:24px}
+.countdown-details{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.countdown-detail{background:linear-gradient(135deg,#fff0f3,#fde8ec);border-radius:12px;padding:14px 6px;text-align:center}
+.countdown-detail .num{font-size:24px;font-weight:700;color:var(--p)}
+.countdown-detail .unit{font-size:11px;color:var(--txl);margin-top:2px}
+.countdown-date-info{font-size:12px;color:var(--txl);text-align:center;margin-bottom:16px;line-height:1.6}
+.countdown-milestones{margin-top:12px}
+.milestone-title{font-size:14px;font-weight:700;margin-bottom:10px;text-align:center;color:var(--txl)}
+.milestone-list{display:flex;flex-direction:column;gap:6px}
+.milestone-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(135deg,#fff8f0,#fef0e0);border-radius:10px;font-size:12px}
+.milestone-item .mi-icon{font-size:18px}
+.milestone-item .mi-text{flex:1;color:var(--tx)}
+.milestone-item .mi-days{font-weight:700;color:var(--gold);white-space:nowrap}
 
-  /* === 通用页面结构 === */
-  .page {
-    display: none;
-    position: relative;
-    z-index: 1;
-    min-height: 100vh;
-    padding: 20px;
-    padding-top: 60px;
-    padding-bottom: 40px;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-  .page.active { display: block; }
+/* === 8. 情书生成器 === */
+.letter-input-group{margin-bottom:14px}
+.letter-input-group label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:var(--txl)}
+.letter-input-group input,.letter-input-group textarea{width:100%;padding:10px 14px;border:2px solid #f0e0e4;border-radius:10px;font-family:inherit;font-size:14px;outline:none;transition:border-color .3s;background:#fff}
+.letter-input-group input:focus,.letter-input-group textarea:focus{border-color:var(--pl)}
+.letter-input-group textarea{resize:none;line-height:1.6}
+.letter-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.letter-tag{padding:5px 12px;border-radius:16px;border:1.5px solid var(--pl);background:#fff;font-size:12px;cursor:pointer;transition:all .25s;font-family:inherit;color:var(--tx)}
+.letter-tag.active{background:var(--p);color:#fff;border-color:var(--p)}
+.letter-paper{background:linear-gradient(135deg,#fff9f0,#fff5e8);border-radius:var(--r);padding:28px 20px;text-align:left;font-size:15px;line-height:2;color:var(--tx);position:relative;border:1px solid #f0e0c8;min-height:180px}
+.letter-paper::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(transparent,transparent 31px,#f0e0c8 31px,#f0e0c8 32px);pointer-events:none;opacity:.4}
+.letter-paper .letter-content{position:relative;z-index:1;white-space:pre-wrap;word-break:break-word}
+.letter-paper .letter-sig{text-align:right;margin-top:20px;font-style:italic;color:var(--p)}
 
-  .page-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .back-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-    background: var(--card);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s;
-    flex-shrink: 0;
-  }
-  .back-btn:active { transform: scale(0.9); }
-
-  .page-title {
-    font-size: 22px;
-    font-weight: 700;
-  }
-
-  .card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 24px;
-    box-shadow: var(--shadow);
-    margin-bottom: 16px;
-  }
-
-  /* === 按钮 === */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 28px;
-    border-radius: 14px;
-    border: none;
-    font-family: inherit;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s;
-    width: 100%;
-  }
-  .btn:active { transform: scale(0.97); }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: white;
-    box-shadow: 0 4px 16px rgba(232, 96, 124, 0.35);
-  }
-  .btn-primary:hover {
-    box-shadow: 0 6px 24px rgba(232, 96, 124, 0.45);
-  }
-
-  .btn-gold {
-    background: linear-gradient(135deg, var(--gold), #c09060);
-    color: white;
-    box-shadow: 0 4px 16px rgba(212, 165, 116, 0.35);
-  }
-
-  .btn-outline {
-    background: transparent;
-    border: 2px solid var(--primary-light);
-    color: var(--primary);
-  }
-
-  .btn-small {
-    padding: 10px 20px;
-    font-size: 14px;
-    border-radius: 10px;
-  }
-
-  /* ========== 1. 默契大考验 ========== */
-  .quiz-intro {
-    text-align: center;
-    padding: 20px 0;
-  }
-  .quiz-intro .big-emoji { font-size: 64px; margin-bottom: 16px; }
-  .quiz-intro p { color: var(--text-light); line-height: 1.8; }
-
-  .player-select {
-    display: flex;
-    gap: 12px;
-    margin: 20px 0;
-  }
-  .player-btn {
-    flex: 1;
-    padding: 16px;
-    border-radius: 14px;
-    border: 2px solid var(--primary-light);
-    background: white;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-align: center;
-  }
-  .player-btn.selected {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: white;
-    border-color: var(--primary);
-  }
-
-  .quiz-progress {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 20px;
-  }
-  .quiz-dot {
-    flex: 1;
-    height: 4px;
-    border-radius: 2px;
-    background: var(--primary-light);
-    opacity: 0.3;
-    transition: all 0.3s;
-  }
-  .quiz-dot.done { opacity: 1; background: var(--primary); }
-  .quiz-dot.current { opacity: 1; background: var(--gold); }
-
-  .quiz-question {
-    font-size: 18px;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 24px;
-    line-height: 1.6;
-  }
-
-  .quiz-options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .quiz-option {
-    padding: 16px;
-    border-radius: 14px;
-    border: 2px solid #f0e0e4;
-    background: white;
-    font-family: inherit;
-    font-size: 15px;
-    cursor: pointer;
-    transition: all 0.25s;
-    text-align: left;
-    line-height: 1.5;
-  }
-  .quiz-option:active { transform: scale(0.98); }
-  .quiz-option:hover { border-color: var(--primary-light); }
-  .quiz-option.selected {
-    border-color: var(--primary);
-    background: linear-gradient(135deg, #fff0f3, #fde4e8);
-    font-weight: 700;
-  }
-
-  .quiz-result {
-    text-align: center;
-    padding: 20px 0;
-  }
-  .result-score {
-    font-size: 80px;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--primary), var(--gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
-  }
-  .result-label {
-    font-size: 16px;
-    color: var(--text-light);
-    margin-top: 8px;
-    margin-bottom: 24px;
-  }
-  .result-message {
-    font-size: 16px;
-    line-height: 1.8;
-    color: var(--text);
-    padding: 16px;
-    background: linear-gradient(135deg, #fff0f3, #fde8ec);
-    border-radius: 14px;
-  }
-
-  /* ========== 2. 爱情轮盘 ========== */
-  .wheel-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .wheel-wrap {
-    position: relative;
-    width: 280px;
-    height: 280px;
-  }
-
-  .wheel {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    position: relative;
-    transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
-    overflow: hidden;
-  }
-
-  .wheel-segment {
-    position: absolute;
-    width: 0;
-    height: 0;
-    top: 50%;
-    left: 50%;
-    transform-origin: 0 0;
-  }
-
-  .wheel-center {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 56px; height: 56px;
-    background: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-    z-index: 2;
-  }
-
-  .wheel-pointer {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 28px;
-    z-index: 3;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-  }
-
-  .wheel-result {
-    text-align: center;
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .wheel-result-text {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--primary);
-    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  @keyframes popIn {
-    0% { transform: scale(0); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  .wheel-custom {
-    width: 100%;
-  }
-  .wheel-custom textarea {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #f0e0e4;
-    border-radius: 12px;
-    font-family: inherit;
-    font-size: 14px;
-    resize: none;
-    outline: none;
-    transition: border-color 0.3s;
-    line-height: 1.6;
-  }
-  .wheel-custom textarea:focus {
-    border-color: var(--primary-light);
-  }
-  .wheel-custom .hint {
-    font-size: 12px;
-    color: var(--text-light);
-    margin-top: 6px;
-  }
-
-  /* ========== 3. 真心话大冒险 ========== */
-  .tod-mode-select {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  .tod-mode-btn {
-    flex: 1;
-    padding: 14px;
-    border-radius: 14px;
-    border: 2px solid #f0e0e4;
-    background: white;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.3s;
-  }
-  .tod-mode-btn.selected-truth {
-    border-color: #7eb8e0;
-    background: linear-gradient(135deg, #e8f4fd, #d0ecff);
-    color: #3a7ab5;
-  }
-  .tod-mode-btn.selected-dare {
-    border-color: var(--primary);
-    background: linear-gradient(135deg, #fff0f3, #fde4e8);
-    color: var(--primary-dark);
-  }
-
-  .tod-card {
-    text-align: center;
-    padding: 32px 20px;
-  }
-  .tod-emoji {
-    font-size: 48px;
-    margin-bottom: 16px;
-  }
-  .tod-type {
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-  }
-  .tod-type.truth { color: #7eb8e0; }
-  .tod-type.dare { color: var(--primary); }
-
-  .tod-text {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.8;
-    margin-bottom: 28px;
-    min-height: 54px;
-  }
-
-  .tod-actions {
-    display: flex;
-    gap: 12px;
-  }
-  .tod-actions .btn {
-    flex: 1;
-  }
-
-  /* ========== 4. 纪念日倒计时 ========== */
-  .countdown-setup {
-    text-align: center;
-    padding: 20px 0;
-  }
-  .countdown-setup .big-emoji { font-size: 56px; margin-bottom: 16px; }
-  .countdown-setup p { color: var(--text-light); margin-bottom: 20px; }
-
-  .date-input {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin-bottom: 24px;
-  }
-  .date-input input {
-    width: 100px;
-    padding: 12px;
-    border: 2px solid #f0e0e4;
-    border-radius: 12px;
-    font-family: inherit;
-    font-size: 16px;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  .date-input input:focus { border-color: var(--primary-light); }
-  .date-input span {
-    display: flex;
-    align-items: center;
-    color: var(--text-light);
-    font-size: 14px;
-  }
-
-  .countdown-display {
-    text-align: center;
-    padding: 20px 0;
-  }
-
-  .countdown-big-number {
-    font-size: 72px;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--primary), var(--gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
-  }
-  .countdown-big-label {
-    font-size: 18px;
-    color: var(--text-light);
-    margin-top: 4px;
-    margin-bottom: 32px;
-  }
-
-  .countdown-details {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 32px;
-  }
-  .countdown-detail {
-    background: linear-gradient(135deg, #fff0f3, #fde8ec);
-    border-radius: 14px;
-    padding: 16px 8px;
-    text-align: center;
-  }
-  .countdown-detail .num {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--primary);
-  }
-  .countdown-detail .unit {
-    font-size: 12px;
-    color: var(--text-light);
-    margin-top: 2px;
-  }
-
-  .countdown-date-info {
-    font-size: 13px;
-    color: var(--text-light);
-    text-align: center;
-    margin-bottom: 20px;
-    line-height: 1.6;
-  }
-
-  .countdown-milestones {
-    margin-top: 16px;
-  }
-  .milestone-title {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    text-align: center;
-    color: var(--text-light);
-  }
-  .milestone-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .milestone-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    background: linear-gradient(135deg, #fff8f0, #fef0e0);
-    border-radius: 10px;
-    font-size: 13px;
-  }
-  .milestone-item .mi-icon { font-size: 20px; }
-  .milestone-item .mi-text { flex: 1; color: var(--text); }
-  .milestone-item .mi-days {
-    font-weight: 700;
-    color: var(--gold);
-    white-space: nowrap;
-  }
-
-  /* ========== 5. 情书生成器 ========== */
-  .letter-setup {
-    padding: 10px 0;
-  }
-  .letter-input-group {
-    margin-bottom: 16px;
-  }
-  .letter-input-group label {
-    display: block;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--text-light);
-  }
-  .letter-input-group input,
-  .letter-input-group textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #f0e0e4;
-    border-radius: 12px;
-    font-family: inherit;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.3s;
-    background: white;
-  }
-  .letter-input-group input:focus,
-  .letter-input-group textarea:focus {
-    border-color: var(--primary-light);
-  }
-  .letter-input-group textarea {
-    resize: none;
-    line-height: 1.6;
-  }
-
-  .letter-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 8px;
-  }
-  .letter-tag {
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 1.5px solid var(--primary-light);
-    background: white;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.25s;
-    font-family: inherit;
-    color: var(--text);
-  }
-  .letter-tag.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-  }
-
-  .letter-output {
-    text-align: center;
-  }
-  .letter-paper {
-    background: linear-gradient(135deg, #fff9f0, #fff5e8);
-    border-radius: var(--radius);
-    padding: 32px 24px;
-    text-align: left;
-    font-size: 16px;
-    line-height: 2;
-    color: var(--text);
-    position: relative;
-    border: 1px solid #f0e0c8;
-    min-height: 200px;
-  }
-  .letter-paper::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-linear-gradient(
-      transparent,
-      transparent 31px,
-      #f0e0c8 31px,
-      #f0e0c8 32px
-    );
-    pointer-events: none;
-    opacity: 0.4;
-  }
-  .letter-paper .letter-content {
-    position: relative;
-    z-index: 1;
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
-  .letter-paper .letter-sig {
-    text-align: right;
-    margin-top: 24px;
-    font-style: italic;
-    color: var(--primary);
-  }
-
-  /* ========== 动画 ========== */
-  .fade-in {
-    animation: fadeIn 0.4s ease;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ========== 分享按钮 ========== */
-  .share-bar {
-    display: flex;
-    gap: 12px;
-    margin-top: 20px;
-  }
-  .share-bar .btn {
-    flex: 1;
-  }
-
-  /* ========== 响应式 ========== */
-  @media (max-width: 360px) {
-    .home-title { font-size: 26px; }
-    .menu-grid { gap: 12px; }
-    .menu-item { padding: 20px 12px; }
-    .menu-item .icon { font-size: 32px; }
-    .wheel-wrap { width: 240px; height: 240px; }
-    .countdown-big-number { font-size: 56px; }
-  }
+/* === 共用 === */
+.share-bar{display:flex;gap:10px;margin-top:16px}
+.share-bar .btn{flex:1}
+.fade-in{animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:340px){.menu-grid{gap:8px}.menu-item{padding:16px 6px}.menu-item .icon{font-size:26px}}
 </style>
 </head>
 <body>
-
-<!-- 粒子背景 -->
 <div id="particles"></div>
 
 <!-- ========== 首页 ========== -->
@@ -760,111 +194,158 @@
   <div class="home-title">我们的小世界</div>
   <div class="home-subtitle">属于两个人的专属游戏空间</div>
   <div class="menu-grid">
-    <div class="menu-item" onclick="showPage('quiz')">
-      <span class="icon">🧠</span>
-      <div class="label">默契考验</div>
-      <div class="desc">看看我们有多懂彼此</div>
+    <div class="menu-item" onclick="showPage('flames')">
+      <span class="icon">🔮</span><div class="label">缘分测试</div><div class="desc">姓名测缘分</div>
     </div>
-    <div class="menu-item" onclick="showPage('wheel')">
-      <span class="icon">🎡</span>
-      <div class="label">爱情轮盘</div>
-      <div class="desc">今天听谁的</div>
+    <div class="menu-item" onclick="showPage('quiz')">
+      <span class="icon">🧠</span><div class="label">默契考验</div><div class="desc">我们有多懂彼此</div>
+    </div>
+    <div class="menu-item" onclick="showPage('wyr')">
+      <span class="icon">💌</span><div class="label">你会选哪个</div><div class="desc">左右滑动做选择</div>
+    </div>
+    <div class="menu-item" onclick="showPage('bucket')">
+      <span class="icon">📋</span><div class="label">愿望清单</div><div class="desc">一起完成的清单</div>
+    </div>
+    <div class="menu-item" onclick="showPage('datenight')">
+      <span class="icon">🎡</span><div class="label">约会灵感</div><div class="desc">今天去干嘛</div>
     </div>
     <div class="menu-item" onclick="showPage('tod')">
-      <span class="icon">💌</span>
-      <div class="label">真心话大冒险</div>
-      <div class="desc">更了解你一点</div>
+      <span class="icon">🔥</span><div class="label">真心话大冒险</div><div class="desc">更了解你一点</div>
     </div>
     <div class="menu-item" onclick="showPage('countdown')">
-      <span class="icon">⏳</span>
-      <div class="label">纪念日</div>
-      <div class="desc">在一起的每一天</div>
+      <span class="icon">⏳</span><div class="label">纪念日</div><div class="desc">在一起的每一天</div>
     </div>
-    <div class="menu-item" onclick="showPage('letter')" style="grid-column: 1 / -1;">
-      <span class="icon">💌</span>
-      <div class="label">情书生成器</div>
-      <div class="desc">把心意写成文字</div>
+    <div class="menu-item" onclick="showPage('letter')">
+      <span class="icon">💌</span><div class="label">情书生成器</div><div class="desc">把心意写成文字</div>
+    </div>
+    <div class="menu-item" onclick="showPage('wheel')">
+      <span class="icon">🎲</span><div class="label">爱情轮盘</div><div class="desc">转一转决定命运</div>
     </div>
   </div>
 </div>
 
-<!-- ========== 1. 默契大考验 ========== -->
+<!-- ========== 1. FLAMES缘分测试 ========== -->
+<div class="page" id="page-flames">
+  <div class="page-header">
+    <button class="back-btn" onclick="showHome()">←</button>
+    <div class="page-title">🔮 缘分测试</div>
+  </div>
+  <div class="card flames-setup fade-in" id="flames-setup">
+    <div class="big-emoji">💕</div>
+    <p style="color:var(--txl);font-size:14px;margin-bottom:16px">输入两个人的名字<br>看看你们是什么缘分</p>
+    <div class="flames-inputs">
+      <input class="flames-input" id="flames-name1" placeholder="你的名字" maxlength="20">
+      <span class="flames-heart">💕</span>
+      <input class="flames-input" id="flames-name2" placeholder="Ta的名字" maxlength="20">
+    </div>
+    <button class="btn btn-primary" onclick="calcFlames()">✨ 测试缘分</button>
+  </div>
+  <div class="card flames-result fade-in" id="flames-result" style="display:none">
+    <div class="flames-type" id="flames-type"></div>
+    <div class="flames-letter" id="flames-letter"></div>
+    <div class="flames-desc" id="flames-desc"></div>
+    <div class="share-bar">
+      <button class="btn btn-outline btn-small" onclick="resetFlames()">再来一次</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 2. 默契大考验 ========== -->
 <div class="page" id="page-quiz">
   <div class="page-header">
     <button class="back-btn" onclick="showHome()">←</button>
     <div class="page-title">🧠 默契大考验</div>
   </div>
-
   <div id="quiz-intro" class="card quiz-intro fade-in">
     <div class="big-emoji">💘</div>
-    <p>两个人各自回答同样的问题<br>最后看看你们的答案有多少重合<br><br>游戏规则：<br>先选一个角色开始答<br>答完后换另一个角色答同样的题</p>
+    <p>两个人各自回答同样的问题<br>最后看看你们的答案有多少重合<br><br>先选一个角色开始答<br>答完后换另一个角色答同样的题</p>
   </div>
-
-  <div id="quiz-select" style="display:none;" class="fade-in">
+  <div id="quiz-select" style="display:none" class="fade-in">
     <div class="player-select">
       <button class="player-btn" id="p1-btn" onclick="selectPlayer(0)">🧑 我</button>
       <button class="player-btn" id="p2-btn" onclick="selectPlayer(1)">🧑‍🦰 Ta</button>
     </div>
-    <button class="btn btn-primary" onclick="startQuiz()" style="margin-top:12px;">开始答题 →</button>
+    <button class="btn btn-primary" onclick="startQuiz()" style="margin-top:10px">开始答题 →</button>
   </div>
-
-  <div id="quiz-game" style="display:none;" class="card fade-in">
+  <div id="quiz-game" style="display:none" class="card fade-in">
     <div class="quiz-progress" id="quiz-progress"></div>
     <div class="quiz-question" id="quiz-q"></div>
     <div class="quiz-options" id="quiz-opts"></div>
   </div>
-
-  <div id="quiz-result" style="display:none;" class="card quiz-result fade-in">
+  <div id="quiz-result" style="display:none" class="card quiz-result fade-in">
     <div class="result-score" id="result-score"></div>
     <div class="result-label">默契指数</div>
     <div class="result-message" id="result-msg"></div>
-    <div class="share-bar" style="margin-top:20px;">
+    <div class="share-bar" style="margin-top:16px">
       <button class="btn btn-outline btn-small" onclick="resetQuiz()">再来一次</button>
     </div>
   </div>
 </div>
 
-<!-- ========== 2. 爱情轮盘 ========== -->
-<div class="page" id="page-wheel">
+<!-- ========== 3. 你会选哪个 ========== -->
+<div class="page" id="page-wyr">
   <div class="page-header">
     <button class="back-btn" onclick="showHome()">←</button>
-    <div class="page-title">🎡 爱情轮盘</div>
+    <div class="page-title">💌 你会选哪个</div>
   </div>
-
-  <div class="card wheel-container fade-in">
-    <div class="wheel-wrap">
-      <div class="wheel-pointer">▼</div>
-      <canvas id="wheel-canvas" width="280" height="280"></canvas>
-      <div class="wheel-center">🎯</div>
+  <div class="wyr-counter" id="wyr-counter"></div>
+  <div class="card" style="padding:12px">
+    <div class="wyr-card-stack" id="wyr-stack"></div>
+  </div>
+  <div class="wyr-hint">👈 向左滑选A · 向右滑选B 👉</div>
+  <div id="wyr-result" style="display:none" class="card fade-in" style="text-align:center;padding:24px">
+    <div style="text-align:center;font-size:14px;color:var(--txl);margin-bottom:12px">你的选择结果</div>
+    <div id="wyr-summary" style="font-size:14px;line-height:2"></div>
+    <div class="share-bar">
+      <button class="btn btn-outline btn-small" onclick="initWyr()">再来一轮</button>
     </div>
-    <div class="wheel-result" id="wheel-result"></div>
-    <button class="btn btn-primary" id="wheel-spin-btn" onclick="spinWheel()">🎲 转一下</button>
-  </div>
-
-  <div class="card wheel-custom fade-in" style="margin-top:16px;">
-    <label style="font-size:14px;font-weight:700;color:var(--text-light);display:block;margin-bottom:8px;">自定义选项（每行一个）</label>
-    <textarea id="wheel-input" rows="5" placeholder="看电影&#10;吃火锅&#10;逛公园&#10;打游戏&#10;宅家躺平">看电影
-吃火锅
-逛公园
-打游戏
-去游乐园
-在家做晚餐
-看日落
-拍一组照片
-去书店逛逛
-夜市走起</textarea>
-    <div class="hint">修改后点击「重新绘制」，再转盘</div>
-    <button class="btn btn-outline btn-small" onclick="drawWheel()" style="margin-top:10px;">重新绘制</button>
   </div>
 </div>
 
-<!-- ========== 3. 真心话大冒险 ========== -->
+<!-- ========== 4. 情侣愿望清单 ========== -->
+<div class="page" id="page-bucket">
+  <div class="page-header">
+    <button class="back-btn" onclick="showHome()">←</button>
+    <div class="page-title">📋 愿望清单</div>
+  </div>
+  <div class="card fade-in">
+    <div class="bucket-progress">
+      <div class="bucket-bar"><div class="bucket-bar-fill" id="bucket-fill" style="width:0%"></div></div>
+      <div class="bucket-count" id="bucket-count">0/30</div>
+    </div>
+    <div id="bucket-list"></div>
+    <div style="margin-top:12px">
+      <div class="letter-input-group">
+        <input type="text" id="bucket-add-input" placeholder="添加自定义愿望..." style="width:100%;padding:10px;border:2px solid #f0e0e4;border-radius:10px;font-family:inherit;font-size:14px;outline:none">
+      </div>
+      <button class="btn btn-outline btn-small" onclick="addBucketItem()" style="width:100%">➕ 添加</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 5. 约会灵感 ========== -->
+<div class="page" id="page-datenight">
+  <div class="page-header">
+    <button class="back-btn" onclick="showHome()">←</button>
+    <div class="page-title">🎡 约会灵感</div>
+  </div>
+  <div class="card fade-in">
+    <div class="date-categories" id="date-cats"></div>
+    <div class="date-result" id="date-result">
+      <div class="date-emoji">🎯</div>
+      <div class="date-title">选一个分类试试</div>
+      <div class="date-desc">或者点「随机灵感」看看命运给你们的安排</div>
+    </div>
+    <button class="btn btn-primary" onclick="randomDate()" style="margin-top:12px">🎲 随机灵感</button>
+  </div>
+</div>
+
+<!-- ========== 6. 真心话大冒险 ========== -->
 <div class="page" id="page-tod">
   <div class="page-header">
     <button class="back-btn" onclick="showHome()">←</button>
-    <div class="page-title">💌 真心话大冒险</div>
+    <div class="page-title">🔥 真心话大冒险</div>
   </div>
-
   <div class="card fade-in">
     <div class="tod-mode-select">
       <button class="tod-mode-btn" id="tod-truth-btn" onclick="setTodMode('truth')">💭 真心话</button>
@@ -874,7 +355,7 @@
     <div class="tod-card" id="tod-card">
       <div class="tod-emoji" id="tod-emoji">💬</div>
       <div class="tod-type" id="tod-type-label">准备好了吗？</div>
-      <div class="tod-text" id="tod-text" style="color:var(--text-light);">选择一个模式开始吧</div>
+      <div class="tod-text" id="tod-text" style="color:var(--txl)">选择一个模式开始吧</div>
       <div class="tod-actions">
         <button class="btn btn-primary btn-small" onclick="nextTod()">下一个 →</button>
       </div>
@@ -882,13 +363,12 @@
   </div>
 </div>
 
-<!-- ========== 4. 纪念日倒计时 ========== -->
+<!-- ========== 7. 纪念日倒计时 ========== -->
 <div class="page" id="page-countdown">
   <div class="page-header">
     <button class="back-btn" onclick="showHome()">←</button>
     <div class="page-title">⏳ 纪念日倒计时</div>
   </div>
-
   <div id="countdown-setup" class="card countdown-setup fade-in">
     <div class="big-emoji">💑</div>
     <p>输入你们在一起的日期<br>记录每一天的珍贵时光</p>
@@ -901,23 +381,13 @@
     </div>
     <button class="btn btn-primary" onclick="startCountdown()">💕 开始记录</button>
   </div>
-
-  <div id="countdown-display" style="display:none;" class="card countdown-display fade-in">
+  <div id="countdown-display" style="display:none" class="card countdown-display fade-in">
     <div class="countdown-big-number" id="cd-days"></div>
     <div class="countdown-big-label">天</div>
     <div class="countdown-details">
-      <div class="countdown-detail">
-        <div class="num" id="cd-years"></div>
-        <div class="unit">年</div>
-      </div>
-      <div class="countdown-detail">
-        <div class="num" id="cd-months"></div>
-        <div class="unit">月</div>
-      </div>
-      <div class="countdown-detail">
-        <div class="num" id="cd-days2"></div>
-        <div class="unit">天</div>
-      </div>
+      <div class="countdown-detail"><div class="num" id="cd-years"></div><div class="unit">年</div></div>
+      <div class="countdown-detail"><div class="num" id="cd-months"></div><div class="unit">月</div></div>
+      <div class="countdown-detail"><div class="num" id="cd-days2"></div><div class="unit">天</div></div>
     </div>
     <div class="countdown-date-info" id="cd-date-info"></div>
     <div class="countdown-milestones" id="cd-milestones"></div>
@@ -927,30 +397,28 @@
   </div>
 </div>
 
-<!-- ========== 5. 情书生成器 ========== -->
+<!-- ========== 8. 情书生成器 ========== -->
 <div class="page" id="page-letter">
   <div class="page-header">
     <button class="back-btn" onclick="showHome()">←</button>
     <div class="page-title">💌 情书生成器</div>
   </div>
-
-  <div id="letter-setup" class="card letter-setup fade-in">
+  <div id="letter-setup" class="card fade-in">
     <div class="letter-input-group">
       <label>Ta 的称呼</label>
-      <input type="text" id="letter-name" placeholder="比如：宝贝、亲爱的、小可爱">
+      <input type="text" id="letter-name" placeholder="宝贝、亲爱的、小可爱...">
     </div>
     <div class="letter-input-group">
-      <label>你的心情 / 关键词（可多选）</label>
+      <label>你的心情 / 关键词</label>
       <div class="letter-tags" id="letter-tags"></div>
     </div>
     <div class="letter-input-group">
       <label>想说的话（选填）</label>
-      <textarea id="letter-extra" rows="3" placeholder="写一点你想表达的东西..."></textarea>
+      <textarea id="letter-extra" rows="2" placeholder="写一点你想表达的东西..."></textarea>
     </div>
     <button class="btn btn-primary" onclick="generateLetter()">✨ 生成情书</button>
   </div>
-
-  <div id="letter-output" style="display:none;" class="card letter-output fade-in">
+  <div id="letter-output" style="display:none" class="card fade-in">
     <div class="letter-paper">
       <div class="letter-content" id="letter-content"></div>
       <div class="letter-sig" id="letter-sig"></div>
@@ -962,607 +430,399 @@
   </div>
 </div>
 
+<!-- ========== 9. 爱情轮盘 ========== -->
+<div class="page" id="page-wheel">
+  <div class="page-header">
+    <button class="back-btn" onclick="showHome()">←</button>
+    <div class="page-title">🎲 爱情轮盘</div>
+  </div>
+  <div class="card fade-in" style="display:flex;flex-direction:column;align-items:center;gap:20px">
+    <div style="position:relative;width:260px;height:260px">
+      <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:24px;z-index:3;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))">▼</div>
+      <canvas id="wheel-canvas" width="260" height="260"></canvas>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 2px 12px rgba(0,0,0,.15);z-index:2">🎯</div>
+    </div>
+    <div id="wheel-result" style="min-height:32px;text-align:center"></div>
+    <button class="btn btn-primary" id="wheel-spin-btn" onclick="spinWheel()">🎲 转一下</button>
+  </div>
+  <div class="card fade-in" style="margin-top:14px">
+    <label style="font-size:13px;font-weight:700;color:var(--txl);display:block;margin-bottom:6px">自定义选项（每行一个）</label>
+    <textarea id="wheel-input" rows="4" style="width:100%;padding:10px;border:2px solid #f0e0e4;border-radius:10px;font-family:inherit;font-size:13px;resize:none;outline:none;line-height:1.6" placeholder="每行一个选项">看电影
+吃火锅
+逛公园
+打游戏
+去游乐园
+在家做晚餐
+看日落
+拍一组照片
+去书店逛逛
+夜市走起</textarea>
+    <button class="btn btn-outline btn-small" onclick="drawWheel()" style="margin-top:8px;width:100%">重新绘制</button>
+  </div>
+</div>
+
 <script>
 // ========== 导航 ==========
-function showHome() {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('home').style.display = 'flex';
-  window.scrollTo(0, 0);
-}
-
-function showPage(name) {
-  document.getElementById('home').style.display = 'none';
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const page = document.getElementById('page-' + name);
-  page.classList.add('active');
-  window.scrollTo(0, 0);
-
-  // 特殊初始化
-  if (name === 'wheel' && !wheelDrawn) drawWheel();
-  if (name === 'countdown') loadCountdown();
-}
+function showHome(){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('home').style.display='flex';window.scrollTo(0,0)}
+function showPage(name){document.getElementById('home').style.display='none';document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+name).classList.add('active');window.scrollTo(0,0);if(name==='wheel'&&!wheelDrawn)drawWheel();if(name==='countdown')loadCountdown();if(name==='wyr')initWyr();if(name==='bucket')renderBucket();if(name==='datenight')initDateNight();if(name==='flames')document.getElementById('flames-setup').style.display='block'&&document.getElementById('flames-result').style.display='none'}
 
 // ========== 粒子 ==========
-(function initParticles() {
-  const c = document.getElementById('particles');
-  const hearts = ['💕', '💗', '💖', '✨', '💝', '🌸', '❤️', '🤍'];
-  for (let i = 0; i < 20; i++) {
-    const el = document.createElement('div');
-    el.className = 'particle';
-    el.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-    el.style.left = Math.random() * 100 + '%';
-    el.style.fontSize = (12 + Math.random() * 12) + 'px';
-    el.style.animationDuration = (12 + Math.random() * 18) + 's';
-    el.style.animationDelay = Math.random() * 20 + 's';
-    c.appendChild(el);
-  }
-})();
+(function(){const c=document.getElementById('particles');const h=['💕','💗','💖','✨','💝','🌸','❤️','🤍'];for(let i=0;i<18;i++){const e=document.createElement('div');e.className='particle';e.textContent=h[Math.floor(Math.random()*h.length)];e.style.left=Math.random()*100+'%';e.style.fontSize=(12+Math.random()*12)+'px';e.style.animationDuration=(12+Math.random()*18)+'s';e.style.animationDelay=Math.random()*20+'s';c.appendChild(e)}})();
 
-// ========== 1. 默契大考验 ==========
-const quizData = [
-  {
-    q: '约会时你们最常去的地方是？',
-    opts: ['电影院', '餐厅', '公园/户外', '家里窝着']
-  },
-  {
-    q: '如果给对方一个超能力，你会选？',
-    opts: ['瞬间移动（随时见面）', '读心术（更懂你）', '时间暂停（多陪陪我）', '飞行（一起环游世界）']
-  },
-  {
-    q: '吵架之后谁先道歉？',
-    opts: ['我先', 'Ta先', '差不多同时', '冷战到一方投降']
-  },
-  {
-    q: '你觉得你们的关系像什么？',
-    opts: ['热水袋（温暖安稳）', '烟花（浪漫炸裂）', '拼图（刚好互补）', '奶茶（甜且上头）']
-  },
-  {
-    q: '对方最让你心动的瞬间是？',
-    opts: ['认真做事的时候', '突然说甜言蜜语', '照顾你的细节', '对你笑的时候']
-  },
-  {
-    q: '如果明天是世界末日，你最想和Ta做什么？',
-    opts: ['做一顿大餐', '什么都不说，抱着', '去最爱的地方走一遍', '像平常一样，因为在身边就够了']
-  },
-  {
-    q: '你觉得你们之间最默契的是？',
-    opts: ['一个眼神就懂', '吃东西的口味', '笑点完全一致', '沉默也不尴尬']
-  },
-  {
-    q: '下辈子还要不要和Ta在一起？',
-    opts: ['当然，下下辈子也要', '看情况（开玩笑）', '不要了', '要，但想换个方式遇见']
-  },
-  {
-    q: '用一种食物形容你们的爱情？',
-    opts: ['巧克力（甜而浓郁）', '火锅（热闹有劲）', '草莓（酸酸甜甜）', '白开水（平淡但离不开）']
-  },
-  {
-    q: '你最想对Ta说的一句话是？',
-    opts: ['遇见你真好', '我比你想的更爱你', '谢谢你一直在', '以后的路一起走吧']
-  }
-];
-
-let currentPlayer = 0;
-let answers = [[], []];
-let quizIndex = 0;
-let quizPhase = 'intro'; // intro, select, playing, result
-
-function selectPlayer(p) {
-  currentPlayer = p;
-  document.getElementById('p1-btn').className = 'player-btn' + (p === 0 ? ' selected' : '');
-  document.getElementById('p2-btn').className = 'player-btn' + (p === 1 ? ' selected' : '');
-}
-
-function startQuiz() {
-  document.getElementById('quiz-intro').style.display = 'none';
-  document.getElementById('quiz-select').style.display = 'none';
-  document.getElementById('quiz-game').style.display = 'block';
-  quizIndex = 0;
-  renderQuizProgress();
-  renderQuizQuestion();
-}
-
-function renderQuizProgress() {
-  const c = document.getElementById('quiz-progress');
-  c.innerHTML = '';
-  for (let i = 0; i < quizData.length; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'quiz-dot' + (i < quizIndex ? ' done' : '') + (i === quizIndex ? ' current' : '');
-    c.appendChild(dot);
-  }
-}
-
-function renderQuizQuestion() {
-  const q = quizData[quizIndex];
-  document.getElementById('quiz-q').textContent = `Q${quizIndex + 1}. ${q.q}`;
-  const opts = document.getElementById('quiz-opts');
-  opts.innerHTML = '';
-  q.opts.forEach((o, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'quiz-option';
-    btn.textContent = o;
-    btn.onclick = () => answerQuiz(i);
-    opts.appendChild(btn);
-  });
-  renderQuizProgress();
-}
-
-function answerQuiz(idx) {
-  if (quizPhase === 'waiting') return;
-
-  const opts = document.querySelectorAll('.quiz-option');
-  opts[idx].classList.add('selected');
-
-  if (currentPlayer === 0) {
-    answers[0][quizIndex] = idx;
-    setTimeout(() => {
-      opts.forEach(o => o.classList.remove('selected'));
-      if (quizIndex < quizData.length - 1) {
-        quizIndex++;
-        renderQuizQuestion();
-      } else {
-        // Player 0 done, switch to player 1
-        quizIndex = 0;
-        currentPlayer = 1;
-        alert(`好的 ${document.getElementById('p2-btn').textContent.trim().slice(2)}，现在轮到你了！请把手机交给 Ta。`);
-        renderQuizQuestion();
-      }
-    }, 300);
-  } else {
-    answers[1][quizIndex] = idx;
-    setTimeout(() => {
-      opts.forEach(o => o.classList.remove('selected'));
-      if (quizIndex < quizData.length - 1) {
-        quizIndex++;
-        renderQuizQuestion();
-      } else {
-        // Both done
-        showQuizResult();
-      }
-    }, 300);
-  }
-}
-
-function showQuizResult() {
-  document.getElementById('quiz-game').style.display = 'none';
-  document.getElementById('quiz-result').style.display = 'block';
-
-  let matches = 0;
-  for (let i = 0; i < quizData.length; i++) {
-    if (answers[0][i] === answers[1][i]) matches++;
-  }
-  const pct = Math.round((matches / quizData.length) * 100);
-
-  document.getElementById('result-score').textContent = pct + '%';
-
-  let msg = '';
-  if (pct >= 90) msg = '灵魂伴侣！你们简直是一个人吧！这种默契度太让人羡慕了 💕';
-  else if (pct >= 70) msg = '非常默契！你们真的好懂彼此，继续保持这份心意吧 ✨';
-  else if (pct >= 50) msg = '还不错哦！有些地方出乎意料的一致，有些地方还有惊喜等着你们发现 🌸';
-  else if (pct >= 30) msg = '哇，有好多不一样的答案！但这恰恰说明你们各自独立又互相吸引呀 💗';
-  else msg = '哈哈，你们的答案完全不一样！不过这才是最有趣的，说明你们还有很多故事要去发现 🎉';
-
-  document.getElementById('result-msg').textContent =
-    `答对了 ${matches}/${quizData.length} 题\n\n${msg}`;
-}
-
-function resetQuiz() {
-  answers = [[], []];
-  quizIndex = 0;
-  currentPlayer = 0;
-  document.getElementById('quiz-result').style.display = 'none';
-  document.getElementById('quiz-intro').style.display = 'block';
-  document.getElementById('p1-btn').className = 'player-btn';
-  document.getElementById('p2-btn').className = 'player-btn';
-}
-
-// ========== 2. 爱情轮盘 ==========
-let wheelDrawn = false;
-let wheelSpinning = false;
-let wheelAngle = 0;
-let currentWheelItems = [];
-
-const defaultWheelColors = [
-  '#e8607c', '#f7a8b8', '#d4a574', '#7eb8e0', '#b8d4a0',
-  '#d4a0c8', '#f0c87a', '#a0c8d4', '#e8909c', '#c0a8d4'
-];
-
-function drawWheel() {
-  const canvas = document.getElementById('wheel-canvas');
-  const ctx = canvas.getContext('2d');
-  const input = document.getElementById('wheel-input').value.trim();
-  currentWheelItems = input.split('\n').map(s => s.trim()).filter(Boolean);
-  if (currentWheelItems.length < 2) { alert('至少需要2个选项'); return; }
-
-  const w = canvas.width, h = canvas.height;
-  const cx = w / 2, cy = h / 2, r = w / 2 - 4;
-  const sliceAngle = (2 * Math.PI) / currentWheelItems.length;
-
-  ctx.clearRect(0, 0, w, h);
-
-  currentWheelItems.forEach((item, i) => {
-    const startA = i * sliceAngle - Math.PI / 2;
-    const endA = startA + sliceAngle;
-
-    // 扇形
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, r, startA, endA);
-    ctx.closePath();
-    ctx.fillStyle = defaultWheelColors[i % defaultWheelColors.length];
-    ctx.fill();
-    ctx.strokeStyle = 'white';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
-    // 文字
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate(startA + sliceAngle / 2);
-    ctx.fillStyle = 'white';
-    ctx.font = 'bold 13px "Noto Serif SC", serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    const maxLen = 8;
-    const txt = item.length > maxLen ? item.slice(0, maxLen) + '…' : item;
-    const textR = r * 0.65;
-    ctx.fillText(txt, textR, 0);
-    ctx.restore();
-  });
-
-  wheelDrawn = true;
-  wheelAngle = 0;
-  document.getElementById('wheel-canvas').style.transform = 'rotate(0deg)';
-  document.getElementById('wheel-result').innerHTML = '';
-}
-
-function spinWheel() {
-  if (wheelSpinning) return;
-  if (!wheelDrawn) drawWheel();
-  wheelSpinning = true;
-
-  const btn = document.getElementById('wheel-spin-btn');
-  btn.textContent = '旋转中...';
-  btn.disabled = true;
-  document.getElementById('wheel-result').innerHTML = '';
-
-  const totalSpin = 360 * (5 + Math.random() * 5);
-  wheelAngle = (wheelAngle + totalSpin) % 360;
-  document.getElementById('wheel-canvas').style.transform = `rotate(${wheelAngle}deg)`;
-
-  setTimeout(() => {
-    const sliceAngle = 360 / currentWheelItems.length;
-    // 指针在顶部(0度)，所以要计算实际位置
-    const normalizedAngle = (360 - (wheelAngle % 360)) % 360;
-    const winnerIdx = Math.floor(normalizedAngle / sliceAngle) % currentWheelItems.length;
-    document.getElementById('wheel-result').innerHTML =
-      `<div class="wheel-result-text">✨ ${currentWheelItems[winnerIdx]} ✨</div>`;
-    wheelSpinning = false;
-    btn.textContent = '🎲 再转一次';
-    btn.disabled = false;
-  }, 4200);
-}
-
-// ========== 3. 真心话大冒险 ==========
-const truths = [
-  '你第一次见到 Ta 时的第一印象是什么？',
-  '你暗恋过 Ta 的哪个瞬间？',
-  '你觉得 Ta 最吸引你的三个优点是什么？',
-  '你们在一起最让你开心的一件事？',
-  '你有没有偷偷保存过 Ta 的照片？',
-  '你觉得你做过最浪漫的事是什么？',
-  'Ta 做过最让你感动的事是什么？',
-  '你最想和 Ta 一起去的地方是哪里？',
-  '你觉得你们关系中最珍贵的东西是什么？',
-  '你有没有在 Ta 不注意的时候偷看过 Ta？',
-  '你觉得 Ta 有什么小缺点反而很可爱？',
-  '如果可以改变你们关系中的一件事，你会改变什么？',
-  '你做过最对不起 Ta 的事是什么？',
-  '你最害怕失去 Ta 什么？',
-  '你最喜欢 Ta 身体的哪个部位？',
-  '你有没有梦到过 Ta？梦到了什么？',
-  '你觉得你们的未来会是什么样？',
-  'Ta 什么时候让你觉得"就是这个人了"？',
-  '你有没有对 Ta 说过谎？关于什么？',
-  '你希望 Ta 以后怎么称呼你？',
-  '你们之间最搞笑的一次误会是什么？',
-  '你最想和 Ta 一起完成的一件事是什么？',
-  '你觉得 Ta 最需要改进的一个习惯是什么？（要诚实）',
-  '你手机里关于 Ta 的照片有多少张？',
-  '如果明天就是最后一天，你想对 Ta 说什么？'
-];
-
-const dares = [
-  '马上发一条朋友圈夸夸 Ta（不能删除）',
-  '用最肉麻的方式叫 Ta 一声',
-  '给 Ta 一个持续10秒的拥抱',
-  '模仿 Ta 的一个经典动作',
-  '给 Ta 唱一首情歌（跑调也行）',
-  '发一条消息对 Ta 说"我爱你"',
-  '亲 Ta 的额头',
-  '握着 Ta 的手说三件你感激 Ta 的事',
-  '把 Ta 的照片设为手机壁纸（至少一天）',
-  '学一段 Ta 最喜欢的电视剧台词',
-  '给 Ta 按摩肩膀2分钟',
-  '用手指画一个爱心送给 Ta',
-  '给 Ta 一个惊喜，做什么都行',
-  '假装不在意，偷看 Ta 10秒然后说"好看"',
-  '让 Ta 看你的手机相册（随便看）',
-  '现在立刻给 Ta 倒一杯水',
-  '和 Ta 对视30秒不许笑',
-  '模仿你第一次牵 Ta 手的场景',
-  '给 Ta 讲一个你小时候的故事',
-  '让 Ta 在你脸上画任何东西（不许擦）',
-  '发语音给 Ta，用唱歌的方式说晚安',
-  '用3种不同语言对 Ta 说"我爱你"',
-  '和 Ta 拍一张搞怪合影',
-  '假装是刚认识的人，重新搭讪 Ta',
-  '给 Ta 做一个承诺，必须兑现'
-];
-
-let todMode = 'mix';
-let todUsed = [];
-
-function setTodMode(mode) {
-  todMode = mode;
-  document.getElementById('tod-truth-btn').className = 'tod-mode-btn';
-  document.getElementById('tod-dare-btn').className = 'tod-mode-btn';
-  document.getElementById('tod-mix-btn').className = 'tod-mode-btn';
-  if (mode === 'truth') document.getElementById('tod-truth-btn').className = 'tod-mode-btn selected-truth';
-  else if (mode === 'dare') document.getElementById('tod-dare-btn').className = 'tod-mode-btn selected-dare';
-  else document.getElementById('tod-mix-btn').className = 'tod-mode-btn selected-truth selected-dare';
-  nextTod();
-}
-
-function nextTod() {
-  let isTruth;
-  if (todMode === 'truth') isTruth = true;
-  else if (todMode === 'dare') isTruth = false;
-  else isTruth = Math.random() > 0.5;
-
-  const pool = isTruth ? truths : dares;
-  const available = pool.filter((_, i) => !todUsed.includes((isTruth ? 'T' : 'D') + i));
-  if (available.length === 0) {
-    todUsed = todUsed.filter(t => t[0] !== (isTruth ? 'T' : 'D'));
-    return nextTod();
-  }
-  const rIdx = Math.floor(Math.random() * available.length);
-  const origIdx = pool.indexOf(available[rIdx]);
-  todUsed.push((isTruth ? 'T' : 'D') + origIdx);
-
-  document.getElementById('tod-emoji').textContent = isTruth ? '💭' : '🔥';
-  const typeEl = document.getElementById('tod-type-label');
-  typeEl.textContent = isTruth ? '真心话' : '大冒险';
-  typeEl.className = 'tod-type ' + (isTruth ? 'truth' : 'dare');
-  document.getElementById('tod-text').textContent = available[rIdx];
-  document.getElementById('tod-text').style.color = 'var(--text)';
-}
-
-// ========== 4. 纪念日倒计时 ==========
-function loadCountdown() {
-  const saved = localStorage.getItem('couple-countdown-date');
-  if (saved) {
-    const d = new Date(saved);
-    document.getElementById('cd-year').value = d.getFullYear();
-    document.getElementById('cd-month').value = d.getMonth() + 1;
-    document.getElementById('cd-day').value = d.getDate();
-    renderCountdown(d);
-  }
-}
-
-function startCountdown() {
-  const y = parseInt(document.getElementById('cd-year').value);
-  const m = parseInt(document.getElementById('cd-month').value);
-  const d = parseInt(document.getElementById('cd-day').value);
-  if (!y || !m || !d) { alert('请填写完整日期'); return; }
-
-  const date = new Date(y, m - 1, d);
-  if (isNaN(date.getTime())) { alert('日期无效'); return; }
-
-  localStorage.setItem('couple-countdown-date', date.toISOString());
-  renderCountdown(date);
-}
-
-function renderCountdown(startDate) {
-  document.getElementById('countdown-setup').style.display = 'none';
-  document.getElementById('countdown-display').style.display = 'block';
-
-  const now = new Date();
-  const diffMs = now - startDate;
-  const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-  // 年月日拆分
-  let years = now.getFullYear() - startDate.getFullYear();
-  let months = now.getMonth() - startDate.getMonth();
-  let days = now.getDate() - startDate.getDate();
-  if (days < 0) { months--; days += 30; }
-  if (months < 0) { years--; months += 12; }
-
-  document.getElementById('cd-days').textContent = totalDays.toLocaleString();
-  document.getElementById('cd-years').textContent = years;
-  document.getElementById('cd-months').textContent = months;
-  document.getElementById('cd-days2').textContent = days;
-
-  const opts = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-  document.getElementById('cd-date-info').innerHTML =
-    `在一起的日期：${startDate.toLocaleDateString('zh-CN', opts)}<br>已经走过了 ${totalDays.toLocaleString()} 天`;
-
-  // 里程碑
-  const milestones = [
-    { days: 7, icon: '🌱', text: '第一周' },
-    { days: 30, icon: '🌙', text: '满月' },
-    { days: 100, icon: '💯', text: '一百天' },
-    { days: 365, icon: '🎂', text: '一周年' },
-    { days: 520, icon: '💕', text: '520天' },
-    { days: 730, icon: '⭐', text: '两周年' },
-    { days: 1000, icon: '🏆', text: '一千天' },
-    { days: 1461, icon: '💎', text: '四周年' },
-  ];
-
-  const mc = document.getElementById('cd-milestones');
-  let html = '<div class="milestone-title">🗓️ 里程碑</div><div class="milestone-list">';
-  milestones.forEach(m => {
-    const reached = totalDays >= m.days;
-    const diff = m.days - totalDays;
-    html += `<div class="milestone-item" style="${reached ? 'opacity:1' : 'opacity:0.5'}">
-      <span class="mi-icon">${m.icon}</span>
-      <span class="mi-text">${m.text}（${m.days}天）</span>
-      <span class="mi-days">${reached ? '✓ 已达成' : `还差${diff}天`}</span>
-    </div>`;
-  });
-  html += '</div>';
-  mc.innerHTML = html;
-}
-
-function resetCountdown() {
-  localStorage.removeItem('couple-countdown-date');
-  document.getElementById('countdown-display').style.display = 'none';
-  document.getElementById('countdown-setup').style.display = 'block';
-  document.getElementById('cd-year').value = '';
-  document.getElementById('cd-month').value = '';
-  document.getElementById('cd-day').value = '';
-}
-
-// ========== 5. 情书生成器 ==========
-const letterTags = ['思念', '感恩', '幸福', '心动', '承诺', '日常', '回忆', '未来', '甜蜜', '勇气'];
-let selectedTags = new Set();
-
-(function initTags() {
-  const c = document.getElementById('letter-tags');
-  letterTags.forEach(t => {
-    const btn = document.createElement('button');
-    btn.className = 'letter-tag';
-    btn.textContent = t;
-    btn.onclick = () => {
-      if (selectedTags.has(t)) { selectedTags.delete(t); btn.classList.remove('active'); }
-      else { selectedTags.add(t); btn.classList.add('active'); }
-    };
-    c.appendChild(btn);
-  });
-})();
-
-const letterTemplates = {
-  '思念': [
-    '想你的时候，连空气都变得温柔',
-    '今天的风很轻，让我想起你的呼吸',
-    '每一分钟没有你在身边，都像是一封没寄出的信',
-  ],
-  '感恩': [
-    '谢谢你出现在我的生命里，让平凡的日子有了光',
-    '感谢命运让我遇见了你，让世界变得不一样',
-    '你的存在，是我最大的幸运',
-  ],
-  '幸福': [
-    '和你在一起的每一天，都是我最好的日子',
-    '幸福就是醒来的时候你还在身边',
-    '原来幸福不需要轰轰烈烈，只要有你就够了',
-  ],
-  '心动': [
-    '你笑起来的样子，是我见过最美的风景',
-    '每一次心跳加速，都是因为你',
-    '你的眼睛里有星星，我总是忍不住多看几眼',
-  ],
-  '承诺': [
-    '未来的日子，我想一直牵着你的手',
-    '不管发生什么，我都在',
-    '我承诺，每天都会比昨天更爱你一点',
-  ],
-  '日常': [
-    '和你一起吃饭、散步、发呆，就是最好的约会',
-    '生活有你，连柴米油盐都是甜的',
-    '最喜欢的事情，就是和你一起浪费时间',
-  ],
-  '回忆': [
-    '还记得我们第一次见面吗？那时候我就觉得你很特别',
-    '我们一起走过的路，每一步都值得珍藏',
-    '那些和你一起笑过哭过的日子，我都记得',
-  ],
-  '未来': [
-    '我想象过很多种未来，每一种都有你',
-    '以后的日子，我们一起慢慢变老吧',
-    '想和你一起看遍世界的风景',
-  ],
-  '甜蜜': [
-    '你就是我的小太阳，每天都在发光',
-    '遇见你之后，我的世界就只剩下甜了',
-    '你是我所有快乐的理由',
-  ],
-  '勇气': [
-    '是你让我相信了爱情',
-    '因为有你，我不再害怕任何事情',
-    '你给了我面对一切的勇气',
-  ],
+// ========== 1. FLAMES缘分测试 ==========
+const flamesResult={
+  F:{name:'朋友',emoji:'🤝',desc:'你们是很好的朋友！友情是爱情的基础，也许某天友谊会升华为更深的感情。珍惜这份缘分吧！'},
+  L:{name:'恋人',emoji:'💕',desc:'你们是天生的恋人！彼此吸引，心灵相通。这段感情充满了浪漫和甜蜜，好好享受在一起的每一刻。'},
+  A:{name:'暧昧',emoji:'😏',desc:'你们之间有一种说不清道不明的吸引力！暧昧期是最美好的阶段，勇敢一点，也许就差一句话。'},
+  M:{name:'夫妻',emoji:'💍',desc:'你们命中注定是彼此的另一半！这种缘分深厚而稳固，携手共度一生是最美好的承诺。'},
+  E:{name:'敌人',emoji:'⚔️',desc:'你们是冤家路窄的对手！不过"欢喜冤家"也是很有爱的组合，吵吵闹闹反而更有趣。'},
+  S:{name:'兄弟/姐妹',emoji:'🤜',desc:'你们之间更多的是亲人般的感情，这种缘分也很珍贵，有人一直在身边就是最大的幸运。'}
 };
 
-function generateLetter() {
-  const name = document.getElementById('letter-name').value.trim() || '你';
-  const extra = document.getElementById('letter-extra').value.trim();
-  const tags = selectedTags.size > 0 ? [...selectedTags] : letterTags.slice(0, 3);
-
-  let content = `亲爱的${name}：\n\n`;
-
-  // 开头
-  const openings = [
-    `有些话藏在心里很久了，今天想说给你听。`,
-    `写这封信的时候，嘴角不自觉地上扬了。`,
-    `不知道从什么时候开始，你成了我最想分享一切的人。`,
-    `窗外的风很温柔，让我想到了你。`,
-  ];
-  content += openings[Math.floor(Math.random() * openings.length)] + '\n\n';
-
-  // 中间 — 从标签中随机选2-3条
-  const shuffled = [...tags].sort(() => Math.random() - 0.5).slice(0, Math.min(3, tags.length));
-  shuffled.forEach(tag => {
-    const pool = letterTemplates[tag];
-    if (pool) {
-      content += pool[Math.floor(Math.random() * pool.length)] + '\n\n';
-    }
-  });
-
-  // 想说的话
-  if (extra) {
-    content += `我还想对你说：${extra}\n\n`;
+function calcFlames(){
+  const n1=document.getElementById('flames-name1').value.trim();
+  const n2=document.getElementById('flames-name2').value.trim();
+  if(!n1||!n2){alert('请输入两个人的名字');return}
+  const combined=(n1+n2).toLowerCase().replace(/[^a-z\u4e00-\u9fff]/g,'');
+  if(!combined){alert('名字无效');return}
+  // Count letters
+  const counts={};
+  for(const ch of combined){counts[ch]=(counts[ch]||0)+1}
+  const nums=Object.values(counts);
+  // FLAMES elimination
+  let alive=[0,1,2,3,4,5]; // F L A M E S
+  const labels=['F','L','A','M','E','S'];
+  let numIdx=0;
+  while(alive.length>1){
+    const step=nums[numIdx%nums.length];
+    const removeIdx=(step-1)%alive.length;
+    alive.splice(removeIdx,1);
+    numIdx++;
   }
+  const result=labels[alive[0]];
+  const r=flamesResult[result];
 
-  // 结尾
-  const endings = [
-    '这些话可能不够华丽，但每一个字都是真心的。',
-    '谢谢你读到这里，就像谢谢你一直在我身边。',
-    '千言万语汇成一句话：有你真好。',
-  ];
-  content += endings[Math.floor(Math.random() * endings.length)];
-
-  document.getElementById('letter-content').textContent = content;
-  document.getElementById('letter-sig').textContent = `永远爱你的 💌`;
-  document.getElementById('letter-setup').style.display = 'none';
-  document.getElementById('letter-output').style.display = 'block';
+  document.getElementById('flames-setup').style.display='none';
+  document.getElementById('flames-result').style.display='block';
+  document.getElementById('flames-type').textContent=r.emoji+' '+r.name;
+  document.getElementById('flames-letter').textContent=result;
+  document.getElementById('flames-desc').textContent=r.desc;
 }
 
-function regenerateLetter() {
-  document.getElementById('letter-output').style.display = 'none';
-  document.getElementById('letter-setup').style.display = 'block';
+function resetFlames(){
+  document.getElementById('flames-result').style.display='none';
+  document.getElementById('flames-setup').style.display='block';
+  document.getElementById('flames-name1').value='';
+  document.getElementById('flames-name2').value='';
 }
 
-function copyLetter() {
-  const text = document.getElementById('letter-content').textContent +
-    '\n\n' + document.getElementById('letter-sig').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    alert('已复制到剪贴板 💕');
-  }).catch(() => {
-    // fallback
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    alert('已复制到剪贴板 💕');
+// ========== 2. 默契大考验 ==========
+const quizData=[
+  {q:'约会时你们最常去的地方是？',opts:['电影院','餐厅','公园/户外','家里窝着']},
+  {q:'如果给对方一个超能力，你会选？',opts:['瞬间移动（随时见面）','读心术（更懂你）','时间暂停（多陪陪我）','飞行（一起环游世界）']},
+  {q:'吵架之后谁先道歉？',opts:['我先','Ta先','差不多同时','冷战到一方投降']},
+  {q:'你觉得你们的关系像什么？',opts:['热水袋（温暖安稳）','烟花（浪漫炸裂）','拼图（刚好互补）','奶茶（甜且上头）']},
+  {q:'对方最让你心动的瞬间是？',opts:['认真做事的时候','突然说甜言蜜语','照顾你的细节','对你笑的时候']},
+  {q:'如果明天是世界末日，你最想和Ta做什么？',opts:['做一顿大餐','什么都不说，抱着','去最爱的地方走一遍','像平常一样，因为在身边就够了']},
+  {q:'你觉得你们之间最默契的是？',opts:['一个眼神就懂','吃东西的口味','笑点完全一致','沉默也不尴尬']},
+  {q:'下辈子还要不要和Ta在一起？',opts:['当然，下下辈子也要','看情况（开玩笑）','不要了','要，但想换个方式遇见']},
+  {q:'用一种食物形容你们的爱情？',opts:['巧克力（甜而浓郁）','火锅（热闹有劲）','草莓（酸酸甜甜）','白开水（平淡但离不开）']},
+  {q:'你最想对Ta说的一句话是？',opts:['遇见你真好','我比你想的更爱你','谢谢你一直在','以后的路一起走吧']}
+];
+let currentPlayer=0,answers=[[],[]],quizIndex=0;
+function selectPlayer(p){currentPlayer=p;document.getElementById('p1-btn').className='player-btn'+(p===0?' selected':'');document.getElementById('p2-btn').className='player-btn'+(p===1?' selected':'')}
+function startQuiz(){document.getElementById('quiz-intro').style.display='none';document.getElementById('quiz-select').style.display='none';document.getElementById('quiz-game').style.display='block';quizIndex=0;renderQuizProgress();renderQuizQuestion()}
+function renderQuizProgress(){const c=document.getElementById('quiz-progress');c.innerHTML='';for(let i=0;i<quizData.length;i++){const d=document.createElement('div');d.className='quiz-dot'+(i<quizIndex?' done':'')+(i===quizIndex?' current':'');c.appendChild(d)}}
+function renderQuizQuestion(){const q=quizData[quizIndex];document.getElementById('quiz-q').textContent='Q'+(quizIndex+1)+'. '+q.q;const o=document.getElementById('quiz-opts');o.innerHTML='';q.opts.forEach((t,i)=>{const b=document.createElement('button');b.className='quiz-option';b.textContent=t;b.onclick=()=>answerQuiz(i);o.appendChild(b)});renderQuizProgress()}
+function answerQuiz(idx){const opts=document.querySelectorAll('.quiz-option');opts[idx].classList.add('selected');if(currentPlayer===0){answers[0][quizIndex]=idx;setTimeout(()=>{opts.forEach(o=>o.classList.remove('selected'));if(quizIndex<quizData.length-1){quizIndex++;renderQuizQuestion()}else{quizIndex=0;currentPlayer=1;alert('好的，现在轮到 Ta 了！请把手机交给 Ta。');renderQuizQuestion()}},300)}else{answers[1][quizIndex]=idx;setTimeout(()=>{opts.forEach(o=>o.classList.remove('selected'));if(quizIndex<quizData.length-1){quizIndex++;renderQuizQuestion()}else{showQuizResult()}},300)}}
+function showQuizResult(){document.getElementById('quiz-game').style.display='none';document.getElementById('quiz-result').style.display='block';let m=0;for(let i=0;i<quizData.length;i++){if(answers[0][i]===answers[1][i])m++}const pct=Math.round(m/quizData.length*100);document.getElementById('result-score').textContent=pct+'%';let msg='';if(pct>=90)msg='灵魂伴侣！你们简直是一个人吧！这种默契度太让人羡慕了 💕';else if(pct>=70)msg='非常默契！你们真的好懂彼此，继续保持这份心意吧 ✨';else if(pct>=50)msg='还不错哦！有些地方出乎意料的一致，有些地方还有惊喜等着你们发现 🌸';else if(pct>=30)msg='哇，有好多不一样的答案！但这恰恰说明你们各自独立又互相吸引呀 💗';else msg='哈哈，你们的答案完全不一样！不过这才是最有趣的，说明你们还有很多故事要去发现 🎉';document.getElementById('result-msg').textContent='答对了 '+m+'/'+quizData.length+' 题\n\n'+msg}
+function resetQuiz(){answers=[[],[]];quizIndex=0;currentPlayer=0;document.getElementById('quiz-result').style.display='none';document.getElementById('quiz-intro').style.display='block';document.getElementById('p1-btn').className='player-btn';document.getElementById('p2-btn').className='player-btn'}
+
+// ========== 3. 你会选哪个 ==========
+const wyrData=[
+  {a:'永远不吵架',b:'永远不冷战',ea:'🕊️',eb:'🔥'},
+  {a:'能读懂Ta的心',b:'能和Ta永远在一起',ea:'💭',eb:'💍'},
+  {a:'一起看日出',b:'一起看日落',ea:'🌅',eb:'🌇'},
+  {a:'Ta做你爱吃的菜',b:'你做饭Ta说好吃',ea:'🍽️',eb:'👨‍🍳'},
+  {a:'每天一个拥抱',b:'每天一句"我爱你"',ea:'🤗',eb:'💋'},
+  {a:'一起环游世界',b:'一起宅家追剧',ea:'✈️',eb:'🛋️'},
+  {a:'Ta记得你说的每句话',b:'Ta为你学一个新技能',ea:'📝',eb:'🎨'},
+  {a:'一起淋雨',b:'一起看雨',ea:'🌧️',eb:'🪟'},
+  {a:'拍很多合照',b:'写很多情书',ea:'📸',eb:'💌'},
+  {a:'永远是彼此的初恋',b:'兜兜转转还是你',ea:'🌸',eb:'💫'},
+  {a:'Ta给你唱一首歌',b:'Ta给你画一幅画',ea:'🎵',eb:'🎨'},
+  {a:'一起去海边',b:'一起去雪山',ea:'🏖️',eb:'🏔️'},
+  {a:'一起做饭',b:'一起点外卖',ea:'👩‍🍳',eb:'🛵'},
+  {a:'Ta穿你选的衣服',b:'Ta听你推荐的歌',ea:'👔',eb:'🎧'},
+  {a:'一起养一只猫',b:'一起养一只狗',ea:'🐱',eb:'🐶'},
+];
+let wyrIdx=0,wyrChoices=[];
+function initWyr(){wyrIdx=0;wyrChoices=[];document.getElementById('wyr-result').style.display='none';renderWyr()}
+function renderWyr(){
+  if(wyrIdx>=wyrData.length){showWyrResult();return}
+  const s=document.getElementById('wyr-stack');
+  s.innerHTML='';
+  document.getElementById('wyr-counter').textContent=(wyrIdx+1)+' / '+wyrData.length;
+  const item=wyrData[wyrIdx];
+  // Option A card
+  const cA=document.createElement('div');
+  cA.className='wyr-card wyr-option-a';
+  cA.innerHTML='<div class="wyr-label">选择 A</div><div class="wyr-emoji">'+item.ea+'</div><div class="wyr-text">'+item.a+'</div>';
+  cA.onclick=()=>swipeCard('left');
+  // Option B card
+  const cB=document.createElement('div');
+  cB.className='wyr-card wyr-option-b';
+  cB.innerHTML='<div class="wyr-label">选择 B</div><div class="wyr-emoji">'+item.eb+'</div><div class="wyr-text">'+item.b+'</div>';
+  cB.onclick=()=>swipeCard('right');
+  s.appendChild(cA);
+  s.appendChild(cB);
+  // Touch swipe support
+  let startX=0;
+  s.addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});
+  s.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-startX;
+    if(Math.abs(dx)>50){swipeCard(dx<0?'left':'right')}
+  },{passive:true});
+}
+function swipeCard(dir){
+  const s=document.getElementById('wyr-stack');
+  const cards=s.querySelectorAll('.wyr-card');
+  if(cards.length===0)return;
+  const top=cards[cards.length-1];
+  top.classList.add(dir);
+  wyrChoices.push({item:wyrData[wyrIdx],choice:dir});
+  setTimeout(()=>{wyrIdx++;renderWyr()},350);
+}
+function showWyrResult(){
+  document.getElementById('wyr-counter').textContent='已完成！';
+  document.getElementById('wyr-stack').innerHTML='<div style="text-align:center;padding:40px 0;color:var(--txl)"><div style="font-size:48px;margin-bottom:12px">🎉</div>所有选择已完成！</div>';
+  const r=document.getElementById('wyr-result');
+  r.style.display='block';
+  const s=document.getElementById('wyr-summary');
+  let html='';
+  wyrChoices.forEach((c,i)=>{
+    const picked=c.choice==='left'?c.item.a:c.item.b;
+    const other=c.choice==='left'?c.item.b:c.item.a;
+    html+='<div style="padding:6px 0;border-bottom:1px solid #f0e0e4"><span style="color:var(--p);font-weight:700">'+picked+'</span> <span style="color:var(--txl)">（而不是 '+other+'）</span></div>';
   });
+  s.innerHTML=html;
+}
+
+// ========== 4. 情侣愿望清单 ==========
+const defaultBucket=[
+  {text:'一起看一场日出',cat:'浪漫',done:false},
+  {text:'一起做一顿大餐',cat:'生活',done:false},
+  {text:'去一个从没去过的地方旅行',cat:'冒险',done:false},
+  {text:'一起养一盆植物',cat:'生活',done:false},
+  {text:'给对方写一封手写信',cat:'浪漫',done:false},
+  {text:'一起看一场演唱会',cat:'娱乐',done:false},
+  {text:'拍一组情侣照',cat:'浪漫',done:false},
+  {text:'一起做一次志愿者',cat:'成长',done:false},
+  {text:'一起挑战一项新运动',cat:'冒险',done:false},
+  {text:'一起看同一本书并讨论',cat:'成长',done:false},
+  {text:'一起逛夜市吃到撑',cat:'生活',done:false},
+  {text:'一起看日落',cat:'浪漫',done:false},
+  {text:'一起去游乐园玩一整天',cat:'娱乐',done:false},
+  {text:'一起做手工（陶艺/画画）',cat:'创意',done:false},
+  {text:'一起看一部恐怖片',cat:'娱乐',done:false},
+  {text:'一起晨跑一次',cat:'运动',done:false},
+  {text:'一起做一顿早餐',cat:'生活',done:false},
+  {text:'一起数星星',cat:'浪漫',done:false},
+  {text:'一起去海边踩沙滩',cat:'冒险',done:false},
+  {text:'一起做100件小事打卡',cat:'挑战',done:false},
+  {text:'一起坐一次摩天轮',cat:'浪漫',done:false},
+  {text:'一起唱KTV到天亮',cat:'娱乐',done:false},
+  {text:'一起拼完一幅拼图',cat:'创意',done:false},
+  {text:'一起学做甜品',cat:'创意',done:false},
+  {text:'一起在雨中散步',cat:'浪漫',done:false},
+  {text:'一起看一场电影（连座）',cat:'娱乐',done:false},
+  {text:'一起交换手机壁纸一天',cat:'趣味',done:false},
+  {text:'一起给对方化妆/搭配衣服',cat:'趣味',done:false},
+  {text:'一起制定未来的旅行计划',cat:'成长',done:false},
+  {text:'一起录一段vlog',cat:'创意',done:false},
+];
+let bucketItems=[];
+function loadBucket(){
+  const saved=localStorage.getItem('couple-bucket');
+  if(saved){bucketItems=JSON.parse(saved)}else{bucketItems=JSON.parse(JSON.stringify(defaultBucket))}
+}
+function saveBucket(){localStorage.setItem('couple-bucket',JSON.stringify(bucketItems))}
+function renderBucket(){
+  loadBucket();
+  const done=bucketItems.filter(i=>i.done).length;
+  const total=bucketItems.length;
+  document.getElementById('bucket-fill').style.width=Math.round(done/total*100)+'%';
+  document.getElementById('bucket-count').textContent=done+'/'+total;
+  const list=document.getElementById('bucket-list');
+  const cats={};
+  bucketItems.forEach((item,i)=>{
+    if(!cats[item.cat])cats[item.cat]=[];
+    cats[item.cat].push({...item,idx:i});
+  });
+  let html='';
+  Object.entries(cats).forEach(([cat,items])=>{
+    html+='<div class="bucket-category">'+cat+'</div>';
+    items.forEach(item=>{
+      html+='<div class="bucket-item'+(item.done?' done':'')+'" onclick="toggleBucket('+item.idx+')"><div class="bucket-check">'+(item.done?'✓':'')+'</div><div class="bucket-text">'+item.text+'</div></div>';
+    });
+  });
+  list.innerHTML=html;
+}
+function toggleBucket(idx){bucketItems[idx].done=!bucketItems[idx].done;saveBucket();renderBucket()}
+function addBucketItem(){
+  const input=document.getElementById('bucket-add-input');
+  const text=input.value.trim();
+  if(!text)return;
+  bucketItems.push({text:text,cat:'自定义',done:false});
+  input.value='';
+  saveBucket();renderBucket();
+}
+
+// ========== 5. 约会灵感 ==========
+const dateIdeas={
+  '🏠 居家':[
+    {title:'一起做饭挑战',desc:'选一个从没做过的菜谱，一起完成。规定谁洗碗可以抓阄决定。',tip:'提前准备好食材，放点背景音乐'},
+    {title:'电影马拉松',desc:'选一个系列电影（哈利波特、漫威、宫崎骏），准备好零食窝在沙发上看一天。',tip:'用投影仪效果更好'},
+    {title:'桌游之夜',desc:'两人也能玩的桌游：UNO、璀璨宝石、拼字游戏。输的人要满足赢家一个愿望。',tip:'准备点小零食和饮料'},
+    {title:'一起画画',desc:'买两块画布，背对背各画一幅，最后交换看。不需要画得好，重在过程。',tip:'丙烯颜料最好清理'},
+    {title:'家庭SPA夜',desc:'点上香薰蜡烛，准备面膜和精油，互相给对方按摩。',tip:'准备热毛巾和舒缓音乐'},
+    {title:'一起看星空',desc:'如果阳台能看到星星，铺上毯子躺着聊天。看不到就用星空APP模拟。',tip:'准备热巧克力更配'},
+  ],
+  '🚶 户外':[
+    {title:'城市漫步',desc:'随机选一个没去过的街区，不看导航，用脚步丈量陌生的巷子。',tip:'带相机记录沿途风景'},
+    {title:'公园野餐',desc:'准备好三明治、水果、气泡水，在草地上铺野餐垫聊天发呆。',tip:'带本书可以一起朗读'},
+    {title:'骑行探索',desc:'租两辆共享单车，沿着河边或绿道骑行，看看能不能骑到一个从没去过的咖啡馆。',tip:'傍晚骑行光线最美'},
+    {title:'爬山看日落',desc:'选一座不太高的山或山顶公园，在山顶看日落是最浪漫的事之一。',tip:'提前查好日落时间'},
+    {title:'夜市小吃挑战',desc:'两个人各选5样小吃，互相交换，尝试对方选的。',tip:'先逛一圈再决定吃什么'},
+  ],
+  '🎯 有趣':[
+    {title:'密室逃脱',desc:'一起挑战密室逃脱，观察对方在紧张时的反应和决策方式。',tip:'选难度适中的，不要太难'},
+    {title:'情侣大富翁',desc:'用大富翁的规则，但赌注是家务劳动——输的人承包一周的洗碗。',tip:'可以加入自定义规则'},
+    {title:'拍照挑战',desc:'给对方10个拍照任务（拍一只猫、拍一扇有趣的门、拍红色的东西...），限时1小时。',tip:'看谁拍得更有创意'},
+    {title:'交换身份一天',desc:'模仿对方平时的样子和说话方式过一天，互相吐槽模仿得像不像。',tip:'录下来以后看会笑死'},
+    {title:'给对方化妆',desc:'互相给对方化妆或搭配衣服，完全听对方指挥。',tip:'拍照留念'},
+  ],
+  '🍽️ 美食':[
+    {title:'烘焙约会',desc:'一起做蛋糕或饼干，从零开始，哪怕失败了也是美好的回忆。',tip:'提拉米苏不需要烤箱'},
+    {title:'美食盲盒',desc:'每人选3家餐厅写在纸条上，随机抽一家去吃。',tip:'抽到贵的也要遵守规则'},
+    {title:'对方的最爱',desc:'带Ta去你最喜欢的一家餐厅，分享你对这家店的感情。',tip:'提前订位更从容'},
+    {title:'一起调酒',desc:'买几种果汁和气泡水，研究鸡尾酒配方（无酒精版），给对方调一杯专属饮品。',tip:'可以给饮品取名字'},
+  ]
+};
+
+function initDateNight(){
+  const cats=document.getElementById('date-cats');
+  cats.innerHTML='';
+  Object.keys(dateIdeas).forEach(cat=>{
+    const btn=document.createElement('button');
+    btn.className='date-cat';
+    btn.textContent=cat;
+    btn.onclick=()=>pickDateCategory(cat);
+    cats.appendChild(btn);
+  });
+}
+function pickDateCategory(cat){
+  document.querySelectorAll('.date-cat').forEach(b=>{b.classList.toggle('active',b.textContent===cat)});
+  const ideas=dateIdeas[cat];
+  const item=ideas[Math.floor(Math.random()*ideas.length)];
+  showDateResult(item);
+}
+function randomDate(){
+  document.querySelectorAll('.date-cat').forEach(b=>b.classList.remove('active'));
+  const allCats=Object.keys(dateIdeas);
+  const cat=allCats[Math.floor(Math.random()*allCats.length)];
+  const ideas=dateIdeas[cat];
+  const item=ideas[Math.floor(Math.random()*ideas.length)];
+  item._cat=cat;
+  showDateResult(item);
+}
+function showDateResult(item){
+  const r=document.getElementById('date-result');
+  r.innerHTML='<div class="date-emoji">'+(item._cat?item._cat.split(' ')[0]:'💡')+'</div><div class="date-title">'+item.title+'</div><div class="date-desc">'+item.desc+'</div>'+(item.tip?'<div class="date-tip">💡 小提示：'+item.tip+'</div>':'');
+  r.classList.add('fade-in');
+}
+
+// ========== 6. 真心话大冒险 ==========
+const truths=[
+  '你第一次见到 Ta 时的第一印象是什么？','你暗恋过 Ta 的哪个瞬间？','你觉得 Ta 最吸引你的三个优点是什么？',
+  '你们在一起最让你开心的一件事？','你有没有偷偷保存过 Ta 的照片？','你觉得你做过最浪漫的事是什么？',
+  'Ta 做过最让你感动的事是什么？','你最想和 Ta 一起去的地方是哪里？','你觉得你们关系中最珍贵的东西是什么？',
+  '你有没有在 Ta 不注意的时候偷看过 Ta？','你觉得 Ta 有什么小缺点反而很可爱？',
+  '如果可以改变你们关系中的一件事，你会改变什么？','你做过最对不起 Ta 的事是什么？',
+  '你最害怕失去 Ta 什么？','你最喜欢 Ta 身体的哪个部位？','你有没有梦到过 Ta？梦到了什么？',
+  '你觉得你们的未来会是什么样？','Ta 什么时候让你觉得"就是这个人了"？',
+  '你有没有对 Ta 说过谎？关于什么？','你希望 Ta 以后怎么称呼你？',
+  '你们之间最搞笑的一次误会是什么？','你最想和 Ta 一起完成的一件事是什么？',
+  '你觉得 Ta 最需要改进的一个习惯是什么？（要诚实）','你手机里关于 Ta 的照片有多少张？',
+  '如果明天就是最后一天，你想对 Ta 说什么？'
+];
+const dares=[
+  '马上发一条朋友圈夸夸 Ta（不能删除）','用最肉麻的方式叫 Ta 一声','给 Ta 一个持续10秒的拥抱',
+  '模仿 Ta 的一个经典动作','给 Ta 唱一首情歌（跑调也行）','发一条消息对 Ta 说"我爱你"',
+  '亲 Ta 的额头','握着 Ta 的手说三件你感激 Ta 的事','把 Ta 的照片设为手机壁纸（至少一天）',
+  '学一段 Ta 最喜欢的电视剧台词','给 Ta 按摩肩膀2分钟','用手指画一个爱心送给 Ta',
+  '给 Ta 一个惊喜，做什么都行','假装不在意，偷看 Ta 10秒然后说"好看"',
+  '让 Ta 看你的手机相册（随便看）','现在立刻给 Ta 倒一杯水',
+  '和 Ta 对视30秒不许笑','模仿你第一次牵 Ta 手的场景',
+  '给 Ta 讲一个你小时候的故事','让 Ta 在你脸上画任何东西（不许擦）',
+  '发语音给 Ta，用唱歌的方式说晚安','用3种不同语言对 Ta 说"我爱你"',
+  '和 Ta 拍一张搞怪合影','假装是刚认识的人，重新搭讪 Ta','给 Ta 做一个承诺，必须兑现'
+];
+let todMode='mix',todUsed=[];
+function setTodMode(m){todMode=m;document.getElementById('tod-truth-btn').className='tod-mode-btn';document.getElementById('tod-dare-btn').className='tod-mode-btn';document.getElementById('tod-mix-btn').className='tod-mode-btn';if(m==='truth')document.getElementById('tod-truth-btn').className='tod-mode-btn selected-truth';else if(m==='dare')document.getElementById('tod-dare-btn').className='tod-mode-btn selected-dare';else{document.getElementById('tod-truth-btn').className='tod-mode-btn selected-truth';document.getElementById('tod-dare-btn').className='tod-mode-btn selected-dare'}nextTod()}
+function nextTod(){let isT=todMode==='truth'?true:todMode==='dare'?false:Math.random()>.5;const pool=isT?truths:dares;const avail=pool.filter((_,i)=>!todUsed.includes((isT?'T':'D')+i));if(!avail.length){todUsed=todUsed.filter(t=>t[0]!==(isT?'T':'D'));return nextTod()}const r=Math.floor(Math.random()*avail.length);const orig=pool.indexOf(avail[r]);todUsed.push((isT?'T':'D')+orig);document.getElementById('tod-emoji').textContent=isT?'💭':'🔥';const tl=document.getElementById('tod-type-label');tl.textContent=isT?'真心话':'大冒险';tl.className='tod-type '+(isT?'truth':'dare');document.getElementById('tod-text').textContent=avail[r];document.getElementById('tod-text').style.color='var(--tx)'}
+
+// ========== 7. 纪念日倒计时 ==========
+function loadCountdown(){const s=localStorage.getItem('couple-countdown-date');if(s){const d=new Date(s);document.getElementById('cd-year').value=d.getFullYear();document.getElementById('cd-month').value=d.getMonth()+1;document.getElementById('cd-day').value=d.getDate();renderCountdown(d)}}
+function startCountdown(){const y=parseInt(document.getElementById('cd-year').value),m=parseInt(document.getElementById('cd-month').value),d=parseInt(document.getElementById('cd-day').value);if(!y||!m||!d){alert('请填写完整日期');return}const date=new Date(y,m-1,d);if(isNaN(date.getTime())){alert('日期无效');return}localStorage.setItem('couple-countdown-date',date.toISOString());renderCountdown(date)}
+function renderCountdown(sd){document.getElementById('countdown-setup').style.display='none';document.getElementById('countdown-display').style.display='block';const now=new Date();const total=Math.floor((now-sd)/(1000*60*60*24));let y=now.getFullYear()-sd.getFullYear(),m=now.getMonth()-sd.getMonth(),d=now.getDate()-sd.getDate();if(d<0){m--;d+=30}if(m<0){y--;m+=12}document.getElementById('cd-days').textContent=total.toLocaleString();document.getElementById('cd-years').textContent=y;document.getElementById('cd-months').textContent=m;document.getElementById('cd-days2').textContent=d;const opts={year:'numeric',month:'long',day:'numeric',weekday:'long'};document.getElementById('cd-date-info').innerHTML='在一起的日期：'+sd.toLocaleDateString('zh-CN',opts)+'<br>已经走过了 '+total.toLocaleString()+' 天';const ms=[{d:7,i:'🌱',t:'第一周'},{d:30,i:'🌙',t:'满月'},{d:100,i:'💯',t:'一百天'},{d:365,i:'🎂',t:'一周年'},{d:520,i:'💕',t:'520天'},{d:730,i:'⭐',t:'两周年'},{d:1000,i:'🏆',t:'一千天'},{d:1461,i:'💎',t:'四周年'}];let h='<div class="milestone-title">🗓️ 里程碑</div><div class="milestone-list">';ms.forEach(m2=>{const ok=total>=m2.d;h+='<div class="milestone-item" style="'+(ok?'':'opacity:.5')+'"><span class="mi-icon">'+m2.i+'</span><span class="mi-text">'+m2.t+'（'+m2.d+'天）</span><span class="mi-days">'+(ok?'✓ 已达成':'还差'+(m2.d-total)+'天')+'</span></div>'});h+='</div>';document.getElementById('cd-milestones').innerHTML=h}
+function resetCountdown(){localStorage.removeItem('couple-countdown-date');document.getElementById('countdown-display').style.display='none';document.getElementById('countdown-setup').style.display='block';document.getElementById('cd-year').value='';document.getElementById('cd-month').value='';document.getElementById('cd-day').value=''}
+
+// ========== 8. 情书生成器 ==========
+const ltTags=['思念','感恩','幸福','心动','承诺','日常','回忆','未来','甜蜜','勇气'];
+let selTags=new Set();
+(function(){const c=document.getElementById('letter-tags');ltTags.forEach(t=>{const b=document.createElement('button');b.className='letter-tag';b.textContent=t;b.onclick=()=>{if(selTags.has(t)){selTags.delete(t);b.classList.remove('active')}else{selTags.add(t);b.classList.add('active')}};c.appendChild(b)})})();
+const ltTpl={'思念':['想你的时候，连空气都变得温柔','今天的风很轻，让我想起你的呼吸','每一分钟没有你在身边，都像是一封没寄出的信'],'感恩':['谢谢你出现在我的生命里，让平凡的日子有了光','感谢命运让我遇见了你，让世界变得不一样','你的存在，是我最大的幸运'],'幸福':['和你在一起的每一天，都是我最好的日子','幸福就是醒来的时候你还在身边','原来幸福不需要轰轰烈烈，只要有你就够了'],'心动':['你笑起来的样子，是我见过最美的风景','每一次心跳加速，都是因为你','你的眼睛里有星星，我总是忍不住多看几眼'],'承诺':['未来的日子，我想一直牵着你的手','不管发生什么，我都在','我承诺，每天都会比昨天更爱你一点'],'日常':['和你一起吃饭、散步、发呆，就是最好的约会','生活有你，连柴米油盐都是甜的','最喜欢的事情，就是和你一起浪费时间'],'回忆':['还记得我们第一次见面吗？那时候我就觉得你很特别','我们一起走过的路，每一步都值得珍藏','那些和你一起笑过哭过的日子，我都记得'],'未来':['我想象过很多种未来，每一种都有你','以后的日子，我们一起慢慢变老吧','想和你一起看遍世界的风景'],'甜蜜':['你就是我的小太阳，每天都在发光','遇见你之后，我的世界就只剩下甜了','你是我所有快乐的理由'],'勇气':['是你让我相信了爱情','因为有你，我不再害怕任何事情','你给了我面对一切的勇气']};
+function generateLetter(){const name=document.getElementById('letter-name').value.trim()||'你';const extra=document.getElementById('letter-extra').value.trim();const tags=selTags.size>0?[...selTags]:ltTags.slice(0,3);let c='亲爱的'+name+'：\n\n';const opens=['有些话藏在心里很久了，今天想说给你听。','写这封信的时候，嘴角不自觉地上扬了。','不知道从什么时候开始，你成了我最想分享一切的人。','窗外的风很温柔，让我想到了你。'];c+=opens[Math.floor(Math.random()*opens.length)]+'\n\n';const sh=[...tags].sort(()=>Math.random()-.5).slice(0,Math.min(3,tags.length));sh.forEach(t=>{const pool=ltTpl[t];if(pool)c+=pool[Math.floor(Math.random()*pool.length)]+'\n\n'});if(extra)c+='我还想对你说：'+extra+'\n\n';const ends=['这些话可能不够华丽，但每一个字都是真心的。','谢谢你读到这里，就像谢谢你一直在我身边。','千言万语汇成一句话：有你真好。'];c+=ends[Math.floor(Math.random()*ends.length)];document.getElementById('letter-content').textContent=c;document.getElementById('letter-sig').textContent='永远爱你的 💌';document.getElementById('letter-setup').style.display='none';document.getElementById('letter-output').style.display='block'}
+function regenerateLetter(){document.getElementById('letter-output').style.display='none';document.getElementById('letter-setup').style.display='block'}
+function copyLetter(){const t=document.getElementById('letter-content').textContent+'\n\n'+document.getElementById('letter-sig').textContent;navigator.clipboard?navigator.clipboard.writeText(t).then(()=>alert('已复制 💕')).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);alert('已复制 💕')}):alert('复制失败，请长按文字手动复制')}
+
+// ========== 9. 爱情轮盘 ==========
+let wheelDrawn=false,wheelSpinning=false,wheelAngle=0,currentWheelItems=[];
+const wColors=['#e8607c','#f7a8b8','#d4a574','#7eb8e0','#b8d4a0','#d4a0c8','#f0c87a','#a0c8d4','#e8909c','#c0a8d4'];
+function drawWheel(){
+  const cv=document.getElementById('wheel-canvas'),ctx=cv.getContext('2d');
+  const input=document.getElementById('wheel-input').value.trim();
+  currentWheelItems=input.split('\n').map(s=>s.trim()).filter(Boolean);
+  if(currentWheelItems.length<2){alert('至少需要2个选项');return}
+  const w=cv.width,h=cv.height,cx=w/2,cy=h/2,r=w/2-4,sa=Math.PI*2/currentWheelItems.length;
+  ctx.clearRect(0,0,w,h);
+  currentWheelItems.forEach((item,i)=>{
+    const start=i*sa-Math.PI/2,end=start+sa;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();
+    ctx.fillStyle=wColors[i%wColors.length];ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(start+sa/2);ctx.fillStyle='#fff';ctx.font='bold 12px "Noto Serif SC",serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    const txt=item.length>7?item.slice(0,7)+'…':item;ctx.fillText(txt,r*.65,0);ctx.restore();
+  });
+  wheelDrawn=true;wheelAngle=0;document.getElementById('wheel-canvas').style.transform='rotate(0)';document.getElementById('wheel-result').innerHTML='';
+}
+function spinWheel(){
+  if(wheelSpinning)return;if(!wheelDrawn)drawWheel();wheelSpinning=true;
+  const btn=document.getElementById('wheel-spin-btn');btn.textContent='旋转中...';btn.disabled=true;
+  document.getElementById('wheel-result').innerHTML='';
+  const total=360*(5+Math.random()*5);wheelAngle=(wheelAngle+total)%360;
+  document.getElementById('wheel-canvas').style.transform='rotate('+wheelAngle+'deg)';
+  setTimeout(()=>{
+    const sa=360/currentWheelItems.length;
+    const na=(360-(wheelAngle%360))%360;
+    const wi=Math.floor(na/sa)%currentWheelItems.length;
+    document.getElementById('wheel-result').innerHTML='<div style="font-size:18px;font-weight:700;color:var(--p);animation:fadeIn .4s">✨ '+currentWheelItems[wi]+' ✨</div>';
+    wheelSpinning=false;btn.textContent='🎲 再转一次';btn.disabled=false;
+  },4200);
 }
 
 // 初始化轮盘
 drawWheel();
 </script>
-
 </body>
 </html>
