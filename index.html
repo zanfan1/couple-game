@@ -293,7 +293,7 @@ body{font-family:'Noto Serif SC',serif;background:var(--bg);color:var(--tx);min-
     <div class="wyr-card-stack" id="wyr-stack"></div>
   </div>
   <div class="wyr-hint">👈 向左滑选A · 向右滑选B 👉</div>
-  <div id="wyr-result" style="display:none" class="card fade-in" style="text-align:center;padding:24px">
+  <div id="wyr-result" style="display:none;text-align:center;padding:24px" class="card fade-in">
     <div style="text-align:center;font-size:14px;color:var(--txl);margin-bottom:12px">你的选择结果</div>
     <div id="wyr-summary" style="font-size:14px;line-height:2"></div>
     <div class="share-bar">
@@ -464,7 +464,7 @@ body{font-family:'Noto Serif SC',serif;background:var(--bg);color:var(--tx);min-
 <script>
 // ========== 导航 ==========
 function showHome(){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('home').style.display='flex';window.scrollTo(0,0)}
-function showPage(name){document.getElementById('home').style.display='none';document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+name).classList.add('active');window.scrollTo(0,0);if(name==='wheel'&&!wheelDrawn)drawWheel();if(name==='countdown')loadCountdown();if(name==='wyr')initWyr();if(name==='bucket')renderBucket();if(name==='datenight')initDateNight();if(name==='flames')document.getElementById('flames-setup').style.display='block'&&document.getElementById('flames-result').style.display='none'}
+function showPage(name){document.getElementById('home').style.display='none';document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+name).classList.add('active');window.scrollTo(0,0);if(name==='wheel'){wheelDrawn=false;drawWheel()};if(name==='countdown')loadCountdown();if(name==='wyr')initWyr();if(name==='bucket')renderBucket();if(name==='datenight')initDateNight();if(name==='flames'){document.getElementById('flames-setup').style.display='block';document.getElementById('flames-result').style.display='none'}}
 
 // ========== 粒子 ==========
 (function(){const c=document.getElementById('particles');const h=['💕','💗','💖','✨','💝','🌸','❤️','🤍'];for(let i=0;i<18;i++){const e=document.createElement('div');e.className='particle';e.textContent=h[Math.floor(Math.random()*h.length)];e.style.left=Math.random()*100+'%';e.style.fontSize=(12+Math.random()*12)+'px';e.style.animationDuration=(12+Math.random()*18)+'s';e.style.animationDelay=Math.random()*20+'s';c.appendChild(e)}})();
@@ -556,7 +556,7 @@ const wyrData=[
   {a:'Ta穿你选的衣服',b:'Ta听你推荐的歌',ea:'👔',eb:'🎧'},
   {a:'一起养一只猫',b:'一起养一只狗',ea:'🐱',eb:'🐶'},
 ];
-let wyrIdx=0,wyrChoices=[];
+let wyrIdx=0,wyrChoices=[],wyrTouchBound=false;
 function initWyr(){wyrIdx=0;wyrChoices=[];document.getElementById('wyr-result').style.display='none';renderWyr()}
 function renderWyr(){
   if(wyrIdx>=wyrData.length){showWyrResult();return}
@@ -576,13 +576,16 @@ function renderWyr(){
   cB.onclick=()=>swipeCard('right');
   s.appendChild(cA);
   s.appendChild(cB);
-  // Touch swipe support
-  let startX=0;
-  s.addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});
-  s.addEventListener('touchend',e=>{
-    const dx=e.changedTouches[0].clientX-startX;
-    if(Math.abs(dx)>50){swipeCard(dx<0?'left':'right')}
-  },{passive:true});
+  // Touch swipe support (only bind once)
+  if(!wyrTouchBound){
+    wyrTouchBound=true;
+    let startX=0;
+    s.addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});
+    s.addEventListener('touchend',e=>{
+      const dx=e.changedTouches[0].clientX-startX;
+      if(Math.abs(dx)>50){swipeCard(dx<0?'left':'right')}
+    },{passive:true});
+  }
 }
 function swipeCard(dir){
   const s=document.getElementById('wyr-stack');
@@ -821,8 +824,9 @@ function spinWheel(){
   },4200);
 }
 
-// 初始化轮盘
-drawWheel();
+// 延迟初始化轮盘，确保页面可见时再绘制
+setTimeout(()=>{if(document.getElementById('page-wheel').classList.contains('active'))drawWheel()},100);
+window.addEventListener('load',()=>{wheelDrawn=false})
 </script>
 </body>
 </html>
